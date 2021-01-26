@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import BasicPropertyDescriptor from '../../../src/lib/BasicPropertyDescriptor'
+import BasicPropertyDescriptor, { KNOWN_FORMATS } from '../../../src/lib/BasicPropertyDescriptor'
 import PropertyCollector from '../../../src/lib/PropertyCollector'
 import PropertyDescriptors from '../../../src/lib/PropertyDescriptors'
 
@@ -37,6 +37,10 @@ type AssertEnumerationValuesPropertyCollectedParams = AssertPropertyCollectedPar
     expectedEnumerationValues: (string | number)[] | undefined
 }
 
+type AssertKnownFormatCollectedParams = AssertPropertyCollectedParams & {
+    expectedKnownFormat: KNOWN_FORMATS | undefined,
+    expectedItemType?: (new(...args: any[]) => any) | undefined
+}
 
 export {
     AssertPropertyCollectedParams,
@@ -46,7 +50,8 @@ export {
     AssertDescriptionCollectedParams,
     AssertMinimumValueCollectedParams,
     AssertMaximumValueCollectedParams,
-    AssertEnumerationValuesPropertyCollectedParams
+    AssertEnumerationValuesPropertyCollectedParams,
+    AssertKnownFormatCollectedParams
 }
 
 export function assertPropertyCollected( options: AssertPropertyCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
@@ -139,5 +144,13 @@ export function assertPositiveValueCollected( options: AssertPropertyCollectedPa
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.positiveValue).to.be.true
+    return descriptors
+}
+
+export function assertKnownFormatCollected( options: AssertKnownFormatCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
+    const descriptors = assertPropertyCollected( options )
+    const childrenDescriptor = descriptors.descriptors[options.propertyKey]
+    expect(childrenDescriptor.knownFormat).to.equal(options.expectedKnownFormat)
+    if( options.expectedItemType ) expect(childrenDescriptor.itemType).to.equal(options.expectedItemType)
     return descriptors
 }

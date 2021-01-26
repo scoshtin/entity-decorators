@@ -1,5 +1,8 @@
 import AbstractPropertyDescriptor from './AbstractPropertyDescriptor'
 
+type KNOWN_FORMATS = 'email' | 'phone' | 'url'
+export { KNOWN_FORMATS }
+
 export default class DendraPropertyDescriptor extends AbstractPropertyDescriptor {
 
     required = false
@@ -16,5 +19,6 @@ export default class DendraPropertyDescriptor extends AbstractPropertyDescriptor
     positiveValue?: boolean
 
     description?: string
+    knownFormat?: 'email' | 'phone' | 'url'
 
 }
