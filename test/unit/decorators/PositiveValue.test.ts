@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import PositiveValue from '../../../src/decorators/basic/PositiveValue'
 import Required from '../../../src/decorators/basic/Required'
-import { assertPositiveValueCollected, assertPropertyCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertPositiveValueCollected, assertPropertyCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'PositiveValue decorator', () => {

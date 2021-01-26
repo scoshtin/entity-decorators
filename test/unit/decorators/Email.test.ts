@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import Email from '../../../src/decorators/basic/Email'
 import ArrayItems from '../../../src/decorators/basic/ArrayItems'
 import Required from '../../../src/decorators/basic/Required'
-import { assertKnownFormatCollected, assertMaximumLengthCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertKnownFormatCollected, assertMaximumLengthCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'Email decorator', () => {

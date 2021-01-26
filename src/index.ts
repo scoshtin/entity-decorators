@@ -9,10 +9,12 @@ import Required from './decorators/basic/Required'
 import SubObject from './decorators/basic/SubObject'
 import PropertyCollector from './lib/PropertyCollector'
 import BasicPropertyDescriptor from './lib/BasicPropertyDescriptor'
+import EntityPropertyDescriptors from './lib/EntityPropertyDescriptors'
 
 export {
     PropertyCollector,
     BasicPropertyDescriptor,
+    EntityPropertyDescriptors,
     ArrayItems,
     Description,
     ISO8601Date,

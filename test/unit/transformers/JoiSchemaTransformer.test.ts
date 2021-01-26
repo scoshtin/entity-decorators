@@ -15,7 +15,7 @@ type JoiDescribedSchema = {
     }
 }
 
-describe.only( 'JoiSchemaTransformer', () => {
+describe( 'JoiSchemaTransformer', () => {
 
     it('generates schemas for objects with arrays of other objects', function() {
         class Child {

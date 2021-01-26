@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import MinimumValue from '../../../src/decorators/basic/MinimumValue'
 import Required from '../../../src/decorators/basic/Required'
-import { assertMinimumValueCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertMinimumValueCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'MinimumValue decorator', () => {

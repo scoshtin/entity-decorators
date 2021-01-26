@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import Enumeration from '../../../src/decorators/basic/Enumeration'
 import Required from '../../../src/decorators/basic/Required'
-import { assertEnumerationValuesCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertEnumerationValuesCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'Enumeration decorator', () => {

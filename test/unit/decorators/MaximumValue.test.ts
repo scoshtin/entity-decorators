@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import MaxiumValue from '../../../src/decorators/basic/MaximumValue'
 import Required from '../../../src/decorators/basic/Required'
-import { assertMaximumValueCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertMaximumValueCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'MaxiumValue decorator', () => {

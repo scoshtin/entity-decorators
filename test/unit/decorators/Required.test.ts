@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import ArrayItems from '../../../src/decorators/basic/ArrayItems'
 import MinimumLength from '../../../src/decorators/basic/MinimumLength'
 import Required from '../../../src/decorators/basic/Required'
-import { assertPropertyCollected, assertRequiredCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertPropertyCollected, assertRequiredCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'Required decorator', () => {

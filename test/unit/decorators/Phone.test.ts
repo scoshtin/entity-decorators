@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import Phone from '../../../src/decorators/basic/Phone'
 import ArrayItems from '../../../src/decorators/basic/ArrayItems'
 import Required from '../../../src/decorators/basic/Required'
-import { assertKnownFormatCollected, assertMaximumLengthCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertKnownFormatCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'Phone decorator', () => {

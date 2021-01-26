@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import ArrayItems from '../../../src/decorators/basic/ArrayItems'
 import MaximumLength from '../../../src/decorators/basic/MaximumLength'
 import Required from '../../../src/decorators/basic/Required'
-import { assertMaximumLengthCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertMaximumLengthCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'MaximumLength decorator', () => {

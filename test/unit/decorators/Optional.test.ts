@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import ArrayItems from '../../../src/decorators/basic/ArrayItems'
 import MinimumLength from '../../../src/decorators/basic/MinimumLength'
 import Optional from '../../../src/decorators/basic/Optional'
-import { assertNotRequiredCollected, assertPropertyCollected, assertRequiredCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertNotRequiredCollected, assertPropertyCollected, assertRequiredCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'Optional decorator', () => {

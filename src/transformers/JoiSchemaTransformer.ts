@@ -1,5 +1,5 @@
 import Joi, { AnySchema, ObjectSchema } from 'joi'
-import PropertyDescriptors from '../lib/PropertyDescriptors'
+import EntityPropertyDescriptors from '../lib/EntityPropertyDescriptors'
 import PropertyCollector from '../lib/PropertyCollector'
 import BasicPropertyDescriptor from '../lib/BasicPropertyDescriptor'
 import AbstractTransformer from './AbstractTransformer'
@@ -7,26 +7,12 @@ import AbstractTransformer from './AbstractTransformer'
 
 class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
 
-    tranformFromDescriptors(descriptors: PropertyDescriptors<BasicPropertyDescriptor>): Joi.ObjectSchema<any> {
-        return this.buildObject( descriptors )
-    }
-
-    private buildObject( descriptors: PropertyDescriptors<BasicPropertyDescriptor> ): ObjectSchema {
-        if( !descriptors ) return Joi.object()
-
+    tranformFromDescriptors(descriptors: EntityPropertyDescriptors<BasicPropertyDescriptor>): ObjectSchema {
         const schemas: Record<string, AnySchema> = {}
-        for( const propertyKey in descriptors.descriptors ) {
-            const descriptor = descriptors.descriptors[propertyKey]
-            const propertySchema = this.processProperty( descriptor )
-            schemas[propertyKey] = this.processPropertyForCommonDecorators( descriptor, propertySchema )
+        for( const descriptor of descriptors ) {
+            schemas[descriptor.propertyKey]  = this.processProperty( descriptor )
         }
-
         return Joi.object(schemas).label(descriptors.name)
-    }
-
-    private processPropertyForCommonDecorators( descriptor: BasicPropertyDescriptor, schema: AnySchema ): AnySchema {
-        if( descriptor.required ) schema = schema.required()
-        return schema
     }
 
     private processProperty( descriptor: BasicPropertyDescriptor ): AnySchema {
@@ -53,6 +39,10 @@ class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
                 }
         }
         if( !property ) throw new Error(`Unknown type: ${descriptor.propertyKey} -> ${descriptor.propertyTypeName}`)
+
+        // things common to all schemas - e.g. @Required
+        if( descriptor.required ) property = property.required()
+        
         return property.label( descriptor.propertyKey )
     }
 

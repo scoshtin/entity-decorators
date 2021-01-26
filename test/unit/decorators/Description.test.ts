@@ -1,6 +1,6 @@
 import Required from '../../../src/decorators/basic/Required'
 import Description from '../../../src/decorators/basic/Description'
-import { assertDescriptionCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertDescriptionCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'Description decorator', () => {

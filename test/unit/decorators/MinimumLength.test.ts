@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import ArrayItems from '../../../src/decorators/basic/ArrayItems'
 import MinLength from '../../../src/decorators/basic/MinimumLength'
 import Required from '../../../src/decorators/basic/Required'
-import { assertMinimumLengthCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertMinimumLengthCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'MinimumLength decorator', () => {

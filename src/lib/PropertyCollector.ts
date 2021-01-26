@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import AbstractPropertyDescriptor, { AbstractPropertyDescriptorConstructor } from './AbstractPropertyDescriptor'
-import PropertyDescriptors from './PropertyDescriptors'
+import EntityPropertyDescriptors from './EntityPropertyDescriptors'
 import 'reflect-metadata'
 
 const PROPERTY_COLLECTOR_METADATA_KEY = Symbol('PROPERTY_COLLECTOR_METADATA_KEY')
@@ -14,7 +14,7 @@ export { PROPERTY_DECORATOR_FUNC, Class, InstanceOfClass }
 
 export default class PropertyCollector {
 
-    static collectProperty<T extends AbstractPropertyDescriptor>( Type: AbstractPropertyDescriptorConstructor<T>, callback: (descriptor: T, target: any, propertyKey: string, metadata: PropertyDescriptors<T>) => void ): PROPERTY_DECORATOR_FUNC {
+    static collectProperty<T extends AbstractPropertyDescriptor>( Type: AbstractPropertyDescriptorConstructor<T>, callback: (descriptor: T, target: any, propertyKey: string, metadata: EntityPropertyDescriptors<T>) => void ): PROPERTY_DECORATOR_FUNC {
         return (target: any, propertyKey: string ): void => {
             // console.log(`Collecting property: ${this.objectName(target)}.${propertyKey}`)
 
@@ -28,15 +28,15 @@ export default class PropertyCollector {
         }
     }
 
-    private static getPropertyDescriptorsForObject<T extends AbstractPropertyDescriptor>(target: Class): PropertyDescriptors<T> {
+    private static getPropertyDescriptorsForObject<T extends AbstractPropertyDescriptor>(target: Class): EntityPropertyDescriptors<T> {
         const name = this.objectName(target)
 
         const proto = Object.getPrototypeOf(target)
         const protoName = proto ? this.objectName(proto) : null
 
         // Get metadata for this object if it exists - create it if it doesn't
-        let descriptors = Reflect.getOwnMetadata(PROPERTY_COLLECTOR_METADATA_KEY, target.constructor) as PropertyDescriptors<T>
-        if( !descriptors ) descriptors = new PropertyDescriptors<T>(name)
+        let descriptors = Reflect.getOwnMetadata(PROPERTY_COLLECTOR_METADATA_KEY, target.constructor) as EntityPropertyDescriptors<T>
+        if( !descriptors ) descriptors = new EntityPropertyDescriptors<T>(name)
 
         // See if this object extends from another, if so get the parent metadata, and on, and on, and on, ...
         if (!!proto && !!protoName && protoName !== 'Object') {
@@ -52,19 +52,19 @@ export default class PropertyCollector {
         return name as string
     }
 
-    private static getDescriptorsFor<T extends AbstractPropertyDescriptor>( target: Class | InstanceOfClass ): PropertyDescriptors<T> {
-        const result = Reflect.getMetadata(PROPERTY_COLLECTOR_METADATA_KEY, target) as PropertyDescriptors<T>
+    private static getDescriptorsFor<T extends AbstractPropertyDescriptor>( target: Class | InstanceOfClass ): EntityPropertyDescriptors<T> {
+        const result = Reflect.getMetadata(PROPERTY_COLLECTOR_METADATA_KEY, target) as EntityPropertyDescriptors<T>
         if( result ) return result
 
         // This gets hit when the target is not decorated
-        return new PropertyDescriptors<T>( target.name )
+        return new EntityPropertyDescriptors<T>( target.name )
     }
 
-    static getDescriptorsForClass<T extends AbstractPropertyDescriptor>( target: Class ): PropertyDescriptors<T> {
+    static getDescriptorsForClass<T extends AbstractPropertyDescriptor>( target: Class ): EntityPropertyDescriptors<T> {
         return this.getDescriptorsFor( target )
     }
 
-    static getDescriptorsForInstance<T extends AbstractPropertyDescriptor>( target: InstanceOfClass ): PropertyDescriptors<T> {
+    static getDescriptorsForInstance<T extends AbstractPropertyDescriptor>( target: InstanceOfClass ): EntityPropertyDescriptors<T> {
         return this.getDescriptorsFor( target.constructor )
     }
 

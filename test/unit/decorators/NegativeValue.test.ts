@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import NegativeValue from '../../../src/decorators/basic/NegativeValue'
 import Required from '../../../src/decorators/basic/Required'
-import { assertNegativeValueCollected, assertPropertyCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertNegativeValueCollected, assertPropertyCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'NegativeValue decorator', () => {

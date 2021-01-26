@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import Url from '../../../src/decorators/basic/Url'
 import ArrayItems from '../../../src/decorators/basic/ArrayItems'
 import Required from '../../../src/decorators/basic/Required'
-import { assertKnownFormatCollected, assertMaximumLengthCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertKnownFormatCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'Url decorator', () => {
