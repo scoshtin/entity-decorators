@@ -7,11 +7,10 @@ import 'reflect-metadata'
 
 const PROPERTY_COLLECTOR_METADATA_KEY = Symbol('PROPERTY_COLLECTOR_METADATA_KEY')
 
-type PROPERTY_DECORATOR_FUNC = (target: any, propertyKey: string ) => void
-export { PROPERTY_DECORATOR_FUNC }
-
+declare type PROPERTY_DECORATOR_FUNC = (target: any, propertyKey: string ) => void
 declare type Class<T = any> = new (...args: any[]) => T;
 declare type InstanceOfClass = InstanceType<Class>
+export { PROPERTY_DECORATOR_FUNC, Class, InstanceOfClass }
 
 export default class PropertyCollector {
 

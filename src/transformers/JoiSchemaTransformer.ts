@@ -2,16 +2,12 @@ import Joi, { AnySchema, ObjectSchema } from 'joi'
 import PropertyDescriptors from '../lib/PropertyDescriptors'
 import PropertyCollector from '../lib/PropertyCollector'
 import BasicPropertyDescriptor from '../lib/BasicPropertyDescriptor'
+import AbstractTransformer from './AbstractTransformer'
 
 
-class JoiSchemaTransformer {
+class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
 
-    buildSchemaFrom( target: any ): AnySchema {
-        const descriptors = PropertyCollector.getDescriptorsForClass<BasicPropertyDescriptor>( target )
-        return this.buildSchemaFromDescriptors( descriptors )
-    }
-
-    buildSchemaFromDescriptors( descriptors: PropertyDescriptors<BasicPropertyDescriptor> ): ObjectSchema {
+    tranformFromDescriptors(descriptors: PropertyDescriptors<BasicPropertyDescriptor>): Joi.ObjectSchema<any> {
         return this.buildObject( descriptors )
     }
 
@@ -102,7 +98,7 @@ class JoiSchemaTransformer {
         let schema = Joi.array()
 
         if( descriptor.itemType ) {
-            const itemSchema = this.buildSchemaFrom( descriptor.itemType )
+            const itemSchema = this.tranformFromEntityClass( descriptor.itemType )
             schema = schema.items( itemSchema )
         }
 

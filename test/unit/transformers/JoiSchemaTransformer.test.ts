@@ -29,9 +29,8 @@ describe.only( 'JoiSchemaTransformer', () => {
             children?: Child[]
         }
 
-        const descriptors = PropertyCollector.getDescriptorsForClass<BasicPropertyDescriptor>(Parent)
-        const builder = new JoiSchemaTransformer()
-        const schema = builder.buildSchemaFromDescriptors( descriptors )
+        const transformer = new JoiSchemaTransformer()
+        const schema = transformer.tranformFromEntityClass( Parent )
 
         const describedSchema = schema.describe() as JoiDescribedSchema
         expect(describedSchema.type).to.equal('object')
@@ -65,9 +64,8 @@ describe.only( 'JoiSchemaTransformer', () => {
             date?: Date
         }
 
-        const descriptors = PropertyCollector.getDescriptorsForClass<BasicPropertyDescriptor>(DateClass)
-        const builder = new JoiSchemaTransformer()
-        const schema = builder.buildSchemaFromDescriptors( descriptors )
+        const transformer = new JoiSchemaTransformer()
+        const schema = transformer.tranformFromEntityClass( DateClass )
 
         const describedSchema = schema.describe() as JoiDescribedSchema
         expect(describedSchema.type).to.equal('object')
@@ -88,9 +86,8 @@ describe.only( 'JoiSchemaTransformer', () => {
             stringDate?: string
         }
 
-        const descriptors = PropertyCollector.getDescriptorsForClass<BasicPropertyDescriptor>(StringDateClass)
-        const builder = new JoiSchemaTransformer()
-        const schema = builder.buildSchemaFromDescriptors( descriptors )
+        const transformer = new JoiSchemaTransformer()
+        const schema = transformer.tranformFromEntityClass( StringDateClass )
 
         const describedSchema = schema.describe() as JoiDescribedSchema
         expect(describedSchema.type).to.equal('object')
