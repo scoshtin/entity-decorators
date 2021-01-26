@@ -1,4 +1,3 @@
-import BasicPropertyDescriptor from '../lib/BasicPropertyDescriptor'
 import { InstanceOfClass, Class } from '../lib/AbstractEntityDescriptor'
 import EntityDescriptor from '../lib/EntityDescriptor'
 
