@@ -1,5 +1,5 @@
 import JoiSchemaTransformer from '../../../src/transformers/JoiSchemaTransformer'
-import { ArrayItems, ISO8601Date, PropertyCollector, Required, BasicPropertyDescriptor } from '../../../src'
+import { ArrayItems, ISO8601Date, Required } from '../../../src'
 import { expect } from 'chai'
 
 type JoiDescribedSchema = {

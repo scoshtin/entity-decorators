@@ -1,13 +1,12 @@
 import Joi, { AnySchema, ObjectSchema } from 'joi'
-import EntityPropertyDescriptors from '../lib/EntityPropertyDescriptors'
-import PropertyCollector from '../lib/PropertyCollector'
 import BasicPropertyDescriptor from '../lib/BasicPropertyDescriptor'
 import AbstractTransformer from './AbstractTransformer'
+import EntityDescriptor from '../lib/EntityDescriptor'
 
 
 class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
 
-    tranformFromDescriptors(descriptors: EntityPropertyDescriptors<BasicPropertyDescriptor>): ObjectSchema {
+    tranformFromDescriptors(descriptors: EntityDescriptor): ObjectSchema {
         const schemas: Record<string, AnySchema> = {}
         for( const descriptor of descriptors ) {
             schemas[descriptor.propertyKey]  = this.processProperty( descriptor )

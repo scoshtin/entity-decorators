@@ -1,19 +1,19 @@
-import EntityPropertyDescriptors from '../lib/EntityPropertyDescriptors'
-import PropertyCollector, { Class, InstanceOfClass } from '../lib/PropertyCollector'
 import BasicPropertyDescriptor from '../lib/BasicPropertyDescriptor'
+import { InstanceOfClass, Class } from '../lib/AbstractEntityDescriptor'
+import EntityDescriptor from '../lib/EntityDescriptor'
 
 export default abstract class AbstractTransformer<T> {
 
     tranformFromEntityInstance( target: InstanceOfClass ): T {
-        const descriptors = PropertyCollector.getDescriptorsForInstance<BasicPropertyDescriptor>( target )
+        const descriptors = EntityDescriptor.getDescriptorsForInstance( target )
         return this.tranformFromDescriptors( descriptors )
     }
 
     tranformFromEntityClass( target: Class | InstanceOfClass ): T {
-        const descriptors = PropertyCollector.getDescriptorsForClass<BasicPropertyDescriptor>( target )
+        const descriptors = EntityDescriptor.getDescriptorsForClass( target )
         return this.tranformFromDescriptors( descriptors )
     }
 
-    abstract tranformFromDescriptors( descriptors: EntityPropertyDescriptors<BasicPropertyDescriptor> ): T
+    abstract tranformFromDescriptors( descriptors: EntityDescriptor ): T
 
 }

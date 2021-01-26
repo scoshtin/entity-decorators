@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import PropertyCollector from './PropertyCollector'
-
-
 type AbstractPropertyDescriptorConstructor<T extends AbstractPropertyDescriptor> = new (propertyKey: string, propertyType: any, definedIn: string) => T
 export { AbstractPropertyDescriptorConstructor }
 
@@ -19,7 +14,7 @@ export default abstract class AbstractPropertyDescriptor {
     constructor( propertyKey: string, propertyType: any, definedIn: string ) {
         this.propertyKey = propertyKey
         this.propertyType = propertyType
-        this.propertyTypeName = PropertyCollector.objectName( propertyType )
+        this.propertyTypeName = this.objectName( propertyType )
         this.definedIn = definedIn
     }
 
@@ -33,6 +28,11 @@ export default abstract class AbstractPropertyDescriptor {
     get isCustomType() {
         if( this.propertyType === Array ) return false
         return !this.isPrimitive
+    }
+
+    objectName( target: any ): string {
+        const name = target.name || target.constructor.name
+        return name as string
     }
 
 }

@@ -1,7 +1,7 @@
 import { expect } from 'chai'
-import { BasicPropertyDescriptor, PropertyCollector, Required, ArrayItems } from '../../src'
+import { BasicPropertyDescriptor, Required, ArrayItems, EntityDescriptor } from '../../src'
 
-describe( 'PropertyCollector', () => {
+describe( 'EntityDescriptor', () => {
 
     it('handles arrays of other decorated objects', function() {
         class Child {
@@ -15,7 +15,7 @@ describe( 'PropertyCollector', () => {
             children?: Child[]
         }
 
-        const descriptors = PropertyCollector.getDescriptorsForClass<BasicPropertyDescriptor>(Parent)
+        const descriptors = EntityDescriptor.getDescriptorsForClass(Parent)
         expect(descriptors.name).to.equal('Parent')
         expect(Object.keys(descriptors.descriptors)).to.have.lengthOf(1)
 
@@ -34,7 +34,7 @@ describe( 'PropertyCollector', () => {
             count?: number
         }
 
-        const descriptors = PropertyCollector.getDescriptorsForClass<BasicPropertyDescriptor>(NumberClass)
+        const descriptors = EntityDescriptor.getDescriptorsForClass(NumberClass)
         expect(descriptors.name).to.equal('NumberClass')
         expect(Object.keys(descriptors.descriptors)).to.have.lengthOf(1)
 
@@ -53,7 +53,7 @@ describe( 'PropertyCollector', () => {
             someString?: string
         }
 
-        const descriptors = PropertyCollector.getDescriptorsForClass<BasicPropertyDescriptor>(StringClass)
+        const descriptors = EntityDescriptor.getDescriptorsForClass(StringClass)
         expect(descriptors.name).to.equal('StringClass')
         expect(Object.keys(descriptors.descriptors)).to.have.lengthOf(1)
 
@@ -72,7 +72,7 @@ describe( 'PropertyCollector', () => {
             someDate?: Date
         }
 
-        const descriptors = PropertyCollector.getDescriptorsForClass<BasicPropertyDescriptor>(DateClass)
+        const descriptors = EntityDescriptor.getDescriptorsForClass(DateClass)
         expect(descriptors.name).to.equal('DateClass')
         expect(Object.keys(descriptors.descriptors)).to.have.lengthOf(1)
 
@@ -96,7 +96,7 @@ describe( 'PropertyCollector', () => {
             someString2?: string
         }
 
-        const descriptors = PropertyCollector.getDescriptorsForClass<BasicPropertyDescriptor>(StringClass2)
+        const descriptors = EntityDescriptor.getDescriptorsForClass(StringClass2)
         expect(descriptors.name).to.equal('StringClass2')
         expect(Object.keys(descriptors.descriptors)).to.have.lengthOf(2)
 
@@ -126,10 +126,10 @@ describe( 'PropertyCollector', () => {
             someString2?: number
         }
 
-        const classDescriptors = PropertyCollector.getDescriptorsForClass<BasicPropertyDescriptor>(SomeClass)
+        const classDescriptors = EntityDescriptor.getDescriptorsForClass(SomeClass)
         expect(Object.keys(classDescriptors.descriptors)).to.have.lengthOf(2)
 
-        const instanceDescriptors = PropertyCollector.getDescriptorsForInstance<BasicPropertyDescriptor>(new SomeClass())
+        const instanceDescriptors = EntityDescriptor.getDescriptorsForInstance(new SomeClass())
         expect(Object.keys(instanceDescriptors.descriptors)).to.have.lengthOf(2)
 
         expect(JSON.stringify(classDescriptors)).to.equal(JSON.stringify(instanceDescriptors))

@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { BasicPropertyDescriptor, EntityPropertyDescriptors } from '../../../src'
+import { BasicPropertyDescriptor, EntityDescriptor } from '../../../src'
 
 describe( 'EntityPropertyDescriptors', () => {
 
@@ -11,11 +11,11 @@ describe( 'EntityPropertyDescriptors', () => {
             date4?: Date
         }
     
-        const descriptors = new EntityPropertyDescriptors<BasicPropertyDescriptor>('Test')
-        descriptors.addNewProperty( BasicPropertyDescriptor, FakeType, 'string1', String )
-        descriptors.addNewProperty( BasicPropertyDescriptor, FakeType, 'number2', Number )
-        descriptors.addNewProperty( BasicPropertyDescriptor, FakeType, 'boolean3', Boolean )
-        descriptors.addNewProperty( BasicPropertyDescriptor, FakeType, 'date4', Date )
+        const descriptors = new EntityDescriptor('Test', BasicPropertyDescriptor )
+        descriptors.addNewProperty( FakeType, 'string1', String )
+        descriptors.addNewProperty( FakeType, 'number2', Number )
+        descriptors.addNewProperty( FakeType, 'boolean3', Boolean )
+        descriptors.addNewProperty( FakeType, 'date4', Date )
 
         const iteratedDescriptors = []
         for( const descriptor of descriptors ) {
@@ -31,7 +31,7 @@ describe( 'EntityPropertyDescriptors', () => {
     })
 
     it('iteration works on empty descriptors', function() {
-        const descriptors = new EntityPropertyDescriptors<BasicPropertyDescriptor>('Test')
+        const descriptors = new EntityDescriptor('Test', BasicPropertyDescriptor)
     
         const iteratedDescriptors = []
         for( const descriptor of descriptors ) {

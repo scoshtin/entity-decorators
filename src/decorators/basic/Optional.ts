@@ -1,11 +1,11 @@
 import BasicPropertyDescriptor from '../../lib/BasicPropertyDescriptor'
-import PropertyCollector, { PROPERTY_DECORATOR_FUNC } from '../../lib/PropertyCollector'
+import EntityDescriptor, { PROPERTY_DECORATOR_FUNC } from '../../lib/EntityDescriptor'
 
 /**
  * This property is optional: undefined or null will be allowed
  */
 export default function Optional(): PROPERTY_DECORATOR_FUNC {
-    return PropertyCollector.collectProperty( BasicPropertyDescriptor, (descriptor: BasicPropertyDescriptor) => {
+    return EntityDescriptor.collectProperty<BasicPropertyDescriptor>(({ descriptor }) => {
         descriptor.required = false
     })
 }

@@ -1,4 +1,4 @@
-import EntityPropertyDescriptors from '../lib/EntityPropertyDescriptors'
+import EntityPropertyDescriptors from '../lib/EntityDescriptor'
 import PropertyCollector from '../lib/PropertyCollector'
 import BasicPropertyDescriptor from '../lib/BasicPropertyDescriptor'
 
