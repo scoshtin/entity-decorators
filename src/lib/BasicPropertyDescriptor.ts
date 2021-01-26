@@ -4,6 +4,8 @@ export default class DendraPropertyDescriptor extends AbstractPropertyDescriptor
 
     required = false
     isISO8601Date = false
+    enumerationValues?: (string | number)[]
+
     minLength?: number
     maxLength?: number
 

@@ -33,6 +33,10 @@ type AssertArrayItemsPropertyCollectedParams = AssertPropertyCollectedParams & {
     itemType: (new(...args: any[]) => any) | undefined
 }
 
+type AssertEnumerationValuesPropertyCollectedParams = AssertPropertyCollectedParams & {
+    expectedEnumerationValues: (string | number)[] | undefined
+}
+
 export {
     AssertPropertyCollectedParams,
     AssertMinimumLengthCollectedParams,
@@ -41,6 +45,7 @@ export {
     AssertDescriptionCollectedParams,
     AssertMinimumValueCollectedParams,
     AssertMaximumValueCollectedParams,
+    AssertEnumerationValuesPropertyCollectedParams
 }
 
 export function assertPropertyCollected( options: AssertPropertyCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
@@ -105,5 +110,12 @@ export function assertArrayItemsTypeCollected( options: AssertArrayItemsProperty
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.itemType).to.equal(options.itemType)
+    return descriptors
+}
+
+export function assertEnumerationValuesCollected( options: AssertEnumerationValuesPropertyCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
+    const descriptors = assertPropertyCollected( options )
+    const childrenDescriptor = descriptors.descriptors[options.propertyKey]
+    expect(childrenDescriptor.enumerationValues).to.deep.equal(options.expectedEnumerationValues)
     return descriptors
 }
