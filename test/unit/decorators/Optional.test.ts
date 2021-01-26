@@ -1,11 +1,11 @@
 import { expect } from 'chai'
 import ArrayItems from '../../../src/decorators/basic/ArrayItems'
 import MinimumLength from '../../../src/decorators/basic/MinimumLength'
-import Required from '../../../src/decorators/basic/Required'
-import { assertPropertyCollected, assertRequiredCollected } from '../lib/PropertyDescriptorsUtils'
+import Optional from '../../../src/decorators/basic/Optional'
+import { assertNotRequiredCollected, assertPropertyCollected, assertRequiredCollected } from '../lib/PropertyDescriptorsUtils'
 
 
-describe( 'Required decorator', () => {
+describe( 'Optional decorator', () => {
 
     it('required is false when not decorated', function() {
         class Clazz {
@@ -22,13 +22,13 @@ describe( 'Required decorator', () => {
         expect(descriptor.descriptors.string.required).to.be.false
     })
 
-    it('collects Required for Strings', function() {
+    it('collects optional for Strings', function() {
         class Clazz {
-            @Required()
+            @Optional()
             string?: string
         }
 
-        assertRequiredCollected({
+        assertNotRequiredCollected({
             Clazz,
             propertyKey: 'string',
             propertyType: String
@@ -37,11 +37,11 @@ describe( 'Required decorator', () => {
 
     it('collects Required for string arrays', function() {
         class Clazz {
-            @Required()
+            @Optional()
             array?: string[]
         }
 
-        assertRequiredCollected({
+        assertNotRequiredCollected({
             Clazz,
             propertyKey: 'array',
             propertyType: Array
@@ -56,11 +56,11 @@ describe( 'Required decorator', () => {
 
         class Parent {
             @ArrayItems(Child)
-            @Required()
+            @Optional()
             children?: Child[]
         }
 
-        assertRequiredCollected({
+        assertNotRequiredCollected({
             Clazz: Parent,
             propertyKey: 'children',
             propertyType: Array

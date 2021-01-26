@@ -37,6 +37,7 @@ type AssertEnumerationValuesPropertyCollectedParams = AssertPropertyCollectedPar
     expectedEnumerationValues: (string | number)[] | undefined
 }
 
+
 export {
     AssertPropertyCollectedParams,
     AssertMinimumLengthCollectedParams,
@@ -106,6 +107,13 @@ export function assertRequiredCollected( options: AssertPropertyCollectedParams 
     return descriptors
 }
 
+export function assertNotRequiredCollected( options: AssertPropertyCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
+    const descriptors = assertPropertyCollected( options )
+    const childrenDescriptor = descriptors.descriptors[options.propertyKey]
+    expect(childrenDescriptor.required).to.be.false
+    return descriptors
+}
+
 export function assertArrayItemsTypeCollected( options: AssertArrayItemsPropertyCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
@@ -117,5 +125,19 @@ export function assertEnumerationValuesCollected( options: AssertEnumerationValu
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.enumerationValues).to.deep.equal(options.expectedEnumerationValues)
+    return descriptors
+}
+
+export function assertNegativeValueCollected( options: AssertPropertyCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
+    const descriptors = assertPropertyCollected( options )
+    const childrenDescriptor = descriptors.descriptors[options.propertyKey]
+    expect(childrenDescriptor.negativeValue).to.be.true
+    return descriptors
+}
+
+export function assertPositiveValueCollected( options: AssertPropertyCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
+    const descriptors = assertPropertyCollected( options )
+    const childrenDescriptor = descriptors.descriptors[options.propertyKey]
+    expect(childrenDescriptor.positiveValue).to.be.true
     return descriptors
 }

@@ -11,7 +11,10 @@ export default class DendraPropertyDescriptor extends AbstractPropertyDescriptor
 
     minimumValue?: number
     maximumValue?: number
-    
+
+    negativeValue?: boolean
+    positiveValue?: boolean
+
     description?: string
 
 }
