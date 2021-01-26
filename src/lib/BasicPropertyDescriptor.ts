@@ -3,7 +3,7 @@ import AbstractPropertyDescriptor from './AbstractPropertyDescriptor'
 type KNOWN_FORMATS = 'email' | 'phone' | 'url'
 export { KNOWN_FORMATS }
 
-export default class DendraPropertyDescriptor extends AbstractPropertyDescriptor {
+export default class BasicPropertyDescriptor extends AbstractPropertyDescriptor {
 
     required = false
     isISO8601Date = false
