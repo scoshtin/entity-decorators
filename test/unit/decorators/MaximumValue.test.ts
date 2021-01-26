@@ -6,7 +6,7 @@ import { assertMaxValueCollected } from '../lib/PropertyDescriptorsUtils'
 
 describe( 'MaxiumValue decorator', () => {
 
-    it('minimumValue is undefined when not decorated', function() {
+    it('maximumValue is undefined when not decorated', function() {
         class Clazz {
             @Required() // used just to make sure we collect this property
             string?: string
@@ -20,7 +20,7 @@ describe( 'MaxiumValue decorator', () => {
         })
     })
 
-    it('collects minimumValue for numbers', function() {
+    it('collects maximumValue for numbers', function() {
 
         class Clazz {
             @MaxiumValue(4)

@@ -1,11 +1,11 @@
 import { expect } from 'chai'
 import ArrayItems from '../../../src/decorators/basic/ArrayItems'
-import MinLength from '../../../src/decorators/basic/MinLength'
+import MinLength from '../../../src/decorators/basic/MinimumLength'
 import Required from '../../../src/decorators/basic/Required'
-import { assertMinLengthCollected } from '../lib/PropertyDescriptorsUtils'
+import { assertMinimumLengthCollected } from '../lib/PropertyDescriptorsUtils'
 
 
-describe( 'MinLength decorator', () => {
+describe( 'MinimumLength decorator', () => {
 
     it('minLength is undefined when not decorated', function() {
 
@@ -14,11 +14,11 @@ describe( 'MinLength decorator', () => {
             string?: string
         }
 
-        assertMinLengthCollected({
+        assertMinimumLengthCollected({
             Clazz,
             propertyKey: 'string',
             propertyType: String,
-            expectedMinLength: undefined
+            expectedMinimumLength: undefined
         })
     })
 
@@ -29,12 +29,11 @@ describe( 'MinLength decorator', () => {
             string?: string
         }
 
-        assertMinLengthCollected({
+        assertMinimumLengthCollected({
             Clazz,
             propertyKey: 'string',
             propertyType: String,
-            expectedMinLength: 4,
-
+            expectedMinimumLength: 4
         })
     })
 
@@ -45,11 +44,11 @@ describe( 'MinLength decorator', () => {
             array?: string[]
         }
 
-        assertMinLengthCollected({
+        assertMinimumLengthCollected({
             Clazz,
             propertyKey: 'array',
             propertyType: Array,
-            expectedMinLength: 5
+            expectedMinimumLength: 5
         })
     })
 
@@ -66,11 +65,11 @@ describe( 'MinLength decorator', () => {
             children?: Child[]
         }
 
-        assertMinLengthCollected({
+        assertMinimumLengthCollected({
             Clazz: Parent,
             propertyKey: 'children',
             propertyType: Array,
-            expectedMinLength: 3
+            expectedMinimumLength: 3
         })
 
     })
@@ -85,7 +84,7 @@ describe( 'MinLength decorator', () => {
             }
         }catch( e ) {
             const error = e as Error
-            expect(error.message).to.equal('The MinLength decorator can only be applied to String or Array properties.')
+            expect(error.message).to.equal('The MinimumLength decorator can only be applied to String or Array properties.')
         }
     })
 

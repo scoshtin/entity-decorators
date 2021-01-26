@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import MinLength from '../../../src/decorators/basic/MinLength'
+import MinLength from '../../../src/decorators/basic/MinimumLength'
 import Required from '../../../src/decorators/basic/Required'
 import SubObject from '../../../src/decorators/basic/SubObject'
 import { assertPropertyCollected } from '../lib/PropertyDescriptorsUtils'

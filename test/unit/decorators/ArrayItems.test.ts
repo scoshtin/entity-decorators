@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import ArrayItems from '../../../src/decorators/basic/ArrayItems'
-import MinLength from '../../../src/decorators/basic/MinLength'
+import MinLength from '../../../src/decorators/basic/MinimumLength'
 import Required from '../../../src/decorators/basic/Required'
 import { assertArrayItemsTypeCollected } from '../lib/PropertyDescriptorsUtils'
 

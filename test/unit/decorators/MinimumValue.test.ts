@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import Min from '../../../src/decorators/basic/MinimumValue'
+import MinimumValue from '../../../src/decorators/basic/MinimumValue'
 import Required from '../../../src/decorators/basic/Required'
 import { assertMinValueCollected } from '../lib/PropertyDescriptorsUtils'
 
@@ -23,7 +23,7 @@ describe( 'MinimumValue decorator', () => {
     it('collects minimumValue for numbers', function() {
 
         class Clazz {
-            @Min(4)
+            @MinimumValue(4)
             number?: number
         }
 
@@ -40,7 +40,7 @@ describe( 'MinimumValue decorator', () => {
         try {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class Clazz {
-                @Min(3)
+                @MinimumValue(3)
                 date?: Date
             }
         }catch( e ) {

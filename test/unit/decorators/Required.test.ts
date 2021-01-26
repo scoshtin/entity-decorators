@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import ArrayItems from '../../../src/decorators/basic/ArrayItems'
-import MinLength from '../../../src/decorators/basic/MinLength'
+import MinimumLength from '../../../src/decorators/basic/MinimumLength'
 import Required from '../../../src/decorators/basic/Required'
 import { assertPropertyCollected, assertRequiredCollected } from '../lib/PropertyDescriptorsUtils'
 
@@ -9,7 +9,7 @@ describe( 'Required decorator', () => {
 
     it('required is false when not decorated', function() {
         class Clazz {
-            @MinLength(4) // used just to make sure we collect this property
+            @MinimumLength(4) // used just to make sure we collect this property
             string?: string
         }
 
@@ -50,7 +50,7 @@ describe( 'Required decorator', () => {
 
     it('collects Required for object arrays', function() {
         class Child {
-            @MinLength(4)
+            @MinimumLength(4)
             string?: string
         }
 
@@ -72,12 +72,12 @@ describe( 'Required decorator', () => {
         try {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class Clazz {
-                @MinLength(3)
+                @MinimumLength(3)
                 date?: Date
             }
         }catch( e ) {
             const error = e as Error
-            expect(error.message).to.equal('The MinLength decorator can only be applied to String or Array properties.')
+            expect(error.message).to.equal('The MinimumLength decorator can only be applied to String or Array properties.')
         }
     })
 

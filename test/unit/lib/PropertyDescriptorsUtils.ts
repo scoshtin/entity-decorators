@@ -9,19 +9,19 @@ type AssertPropertyCollectedParams = {
     propertyType: { name: string }
 }
 
-type AssertMinLengthCollectedParams = AssertPropertyCollectedParams & {
-    expectedMinLength: number | undefined
+type AssertMinimumLengthCollectedParams = AssertPropertyCollectedParams & {
+    expectedMinimumLength: number | undefined
 }
 
-type AssertMaxLengthCollectedParams = AssertPropertyCollectedParams & {
-    expectedMaxLength: number | undefined
+type AssertMaximumLengthCollectedParams = AssertPropertyCollectedParams & {
+    expectedMaximumLength: number | undefined
 }
 
-type AssertMinValueCollectedParams = AssertPropertyCollectedParams & {
+type AssertMinimumValueCollectedParams = AssertPropertyCollectedParams & {
     expectedMinimumValue: number | undefined
 }
 
-type AssertMaxValueCollectedParams = AssertPropertyCollectedParams & {
+type AssertMaximumValueCollectedParams = AssertPropertyCollectedParams & {
     expectedMaximumValue: number | undefined
 }
 
@@ -35,10 +35,12 @@ type AssertArrayItemsPropertyCollectedParams = AssertPropertyCollectedParams & {
 
 export {
     AssertPropertyCollectedParams,
-    AssertMinLengthCollectedParams,
-    AssertMaxLengthCollectedParams,
+    AssertMinimumLengthCollectedParams,
+    AssertMaximumLengthCollectedParams,
     AssertArrayItemsPropertyCollectedParams,
-    AssertDescriptionCollectedParams
+    AssertDescriptionCollectedParams,
+    AssertMinimumValueCollectedParams,
+    AssertMaximumValueCollectedParams,
 }
 
 export function assertPropertyCollected( options: AssertPropertyCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
@@ -57,28 +59,28 @@ export function assertPropertyCollected( options: AssertPropertyCollectedParams 
     return descriptors
 }
 
-export function assertMinLengthCollected( options: AssertMinLengthCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
+export function assertMinimumLengthCollected( options: AssertMinimumLengthCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
-    expect(childrenDescriptor.minLength).to.equal(options.expectedMinLength)
+    expect(childrenDescriptor.minLength).to.equal(options.expectedMinimumLength)
     return descriptors
 }
 
-export function assertMaxLengthCollected( options: AssertMaxLengthCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
+export function assertMaximumLengthCollected( options: AssertMaximumLengthCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
-    expect(childrenDescriptor.maxLength).to.equal(options.expectedMaxLength)
+    expect(childrenDescriptor.maxLength).to.equal(options.expectedMaximumLength)
     return descriptors
 }
 
-export function assertMinValueCollected( options: AssertMinValueCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
+export function assertMinValueCollected( options: AssertMinimumValueCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.minimumValue).to.equal(options.expectedMinimumValue)
     return descriptors
 }
 
-export function assertMaxValueCollected( options: AssertMaxValueCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
+export function assertMaxValueCollected( options: AssertMaximumValueCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.maximumValue).to.equal(options.expectedMaximumValue)
