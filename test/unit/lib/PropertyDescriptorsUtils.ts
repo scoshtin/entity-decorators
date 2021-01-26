@@ -79,14 +79,14 @@ export function assertMaximumLengthCollected( options: AssertMaximumLengthCollec
     return descriptors
 }
 
-export function assertMinValueCollected( options: AssertMinimumValueCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
+export function assertMinimumValueCollected( options: AssertMinimumValueCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.minimumValue).to.equal(options.expectedMinimumValue)
     return descriptors
 }
 
-export function assertMaxValueCollected( options: AssertMaximumValueCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
+export function assertMaximumValueCollected( options: AssertMaximumValueCollectedParams ): PropertyDescriptors<BasicPropertyDescriptor> {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.maximumValue).to.equal(options.expectedMaximumValue)
