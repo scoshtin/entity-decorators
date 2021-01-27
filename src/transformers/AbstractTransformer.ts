@@ -8,7 +8,7 @@ export default abstract class AbstractTransformer<T> {
         return this.tranformFromDescriptors( descriptors )
     }
 
-    tranformFromEntityClass( target: Class | InstanceOfClass ): T {
+    tranformFromEntityClass( target: Class ): T {
         const descriptors = EntityDescriptor.getDescriptorsForClass( target )
         return this.tranformFromDescriptors( descriptors )
     }

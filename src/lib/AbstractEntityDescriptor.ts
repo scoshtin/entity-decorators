@@ -25,6 +25,7 @@ export { PROPERTY_DECORATOR_FUNC, Class, InstanceOfClass }
 //export default abstract class AbstractEntityDescriptor<E extends AbstractEntityDescriptor<E, T>, T extends AbstractPropertyDescriptor> {
 
 export default abstract class AbstractEntityDescriptor<T extends AbstractPropertyDescriptor> {
+
     name: string
     descriptors: Record<string, T> = {}
     orderedDescriptorKeys: string[] = []

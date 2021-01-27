@@ -22,6 +22,10 @@ export default abstract class AbstractPropertyDescriptor {
         return [String, Date, Number, Boolean].indexOf( this.propertyType ) !== -1
     }
 
+    get isArrayWithCustomType() {
+        return this.propertyType === Array && !!this.itemType
+    }
+
     /**
      * This is a custom type - like a class
      */

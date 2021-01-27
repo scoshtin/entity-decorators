@@ -18,6 +18,7 @@ import Optional from './decorators/basic/Optional'
 import Phone from './decorators/basic/Phone'
 import PositiveValue from './decorators/basic/PositiveValue'
 import Url from './decorators/basic/Url'
+import Scope from './decorators/scopes/Scope'
 
 export {
     BasicPropertyDescriptor,
@@ -37,5 +38,6 @@ export {
     PositiveValue,
     Required,
     SubObject,
-    Url
+    Url,
+    Scope
 }

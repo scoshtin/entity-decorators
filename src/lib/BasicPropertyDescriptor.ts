@@ -21,4 +21,5 @@ export default class BasicPropertyDescriptor extends AbstractPropertyDescriptor 
     description?: string
     stringFormat?: 'email' | 'phone' | 'url' | 'iso8601date'
 
+    scopes?: string[]
 }
