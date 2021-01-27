@@ -2,7 +2,7 @@ import BasicPropertyDescriptor from '../../lib/BasicPropertyDescriptor'
 import EntityDescriptor, { PROPERTY_DECORATOR_FUNC } from '../../lib/EntityDescriptor'
 
 /**
- * Supply a list of allowed values for string or number properties
+ * Supply a list of allowed values for string or number properties.
  * 
  * @param enumerationValues - An Array or variable arguments for the allow values
  */

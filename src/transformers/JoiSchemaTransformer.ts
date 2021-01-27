@@ -46,7 +46,7 @@ class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
     }
 
     private processStringProperty( descriptor: BasicPropertyDescriptor ): AnySchema {
-        if( descriptor.isISO8601Date ) {
+        if( descriptor.stringFormat === 'iso8601date' ) {
             return Joi.date().iso()
         }
 
@@ -76,7 +76,7 @@ class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
     private processDateProperty( descriptor: BasicPropertyDescriptor ): AnySchema {
         let schema = Joi.date()
 
-        if( descriptor.isISO8601Date ) {
+        if( descriptor.stringFormat === 'iso8601date' ) {
             schema = schema.iso()
         }
 

@@ -19,6 +19,6 @@ export default class BasicPropertyDescriptor extends AbstractPropertyDescriptor 
     positiveValue?: boolean
 
     description?: string
-    knownFormat?: 'email' | 'phone' | 'url'
+    stringFormat?: 'email' | 'phone' | 'url' | 'iso8601date'
 
 }

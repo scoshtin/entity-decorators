@@ -38,8 +38,8 @@ type AssertEnumerationValuesPropertyCollectedParams = AssertPropertyCollectedPar
     expectedEnumerationValues: (string | number)[] | undefined
 }
 
-type AssertKnownFormatCollectedParams = AssertPropertyCollectedParams & {
-    expectedKnownFormat: KNOWN_FORMATS | undefined,
+type AssertStringFormatCollectedParams = AssertPropertyCollectedParams & {
+    expectedStringFormat: KNOWN_FORMATS | undefined,
     expectedItemType?: (new(...args: any[]) => any) | undefined
 }
 
@@ -52,7 +52,7 @@ export {
     AssertMinimumValueCollectedParams,
     AssertMaximumValueCollectedParams,
     AssertEnumerationValuesPropertyCollectedParams,
-    AssertKnownFormatCollectedParams
+    AssertStringFormatCollectedParams
 }
 
 export function assertPropertyCollected( options: AssertPropertyCollectedParams ): EntityPropertyDescriptors {
@@ -148,10 +148,10 @@ export function assertPositiveValueCollected( options: AssertPropertyCollectedPa
     return descriptors
 }
 
-export function assertKnownFormatCollected( options: AssertKnownFormatCollectedParams ): EntityPropertyDescriptors {
+export function assertStringFormatCollected( options: AssertStringFormatCollectedParams ): EntityPropertyDescriptors {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
-    expect(childrenDescriptor.knownFormat).to.equal(options.expectedKnownFormat)
+    expect(childrenDescriptor.stringFormat).to.equal(options.expectedStringFormat)
     if( options.expectedItemType ) expect(childrenDescriptor.itemType).to.equal(options.expectedItemType)
     return descriptors
 }

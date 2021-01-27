@@ -2,53 +2,53 @@ import { expect } from 'chai'
 import Url from '../../../src/decorators/basic/Url'
 import ArrayItems from '../../../src/decorators/basic/ArrayItems'
 import Required from '../../../src/decorators/basic/Required'
-import { assertKnownFormatCollected } from '../../lib/PropertyDescriptorsUtils'
+import { assertStringFormatCollected } from '../../lib/PropertyDescriptorsUtils'
 
 
 describe( 'Url decorator', () => {
 
-    it('knownFormat is undefined when not decorated', function() {
+    it('string format is undefined when not decorated', function() {
         class Clazz {
             @Required() // used just to make sure we collect this property
             string?: string
         }
 
-        assertKnownFormatCollected({
+        assertStringFormatCollected({
             Clazz,
             propertyKey: 'string',
             propertyType: String,
-            expectedKnownFormat: undefined
+            expectedStringFormat: undefined
         })
     })
 
-    it('collects email knownFormat for strings', function() {
+    it('collects email format for strings', function() {
         class Clazz {
             @Url()
             string?: string
         }
 
-        assertKnownFormatCollected({
+        assertStringFormatCollected({
             Clazz,
             propertyKey: 'string',
             propertyType: String,
             expectedItemType: undefined,
-            expectedKnownFormat: 'url'
+            expectedStringFormat: 'url'
         })
     })
 
-    it('collects email knownFormat for string arrays', function() {
+    it('collects email format for string arrays', function() {
         class Clazz {
             @Url()
             @ArrayItems(String)
             array?: string[]
         }
 
-        assertKnownFormatCollected({
+        assertStringFormatCollected({
             Clazz,
             propertyKey: 'array',
             propertyType: Array,
             expectedItemType: String,
-            expectedKnownFormat: 'url',
+            expectedStringFormat: 'url',
         })
     })
 

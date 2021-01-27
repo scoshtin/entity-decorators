@@ -3,6 +3,8 @@ import EntityDescriptor, { PROPERTY_DECORATOR_FUNC } from '../../lib/EntityDescr
 
 /**
  * Define the maximum length for Strings or Arrays
+ * 
+ * @param - maxLength - the maximum length of the string value
  */
 export default function MaximumLength( maxLength: number ): PROPERTY_DECORATOR_FUNC {
     return EntityDescriptor.collectProperty<BasicPropertyDescriptor>(({ descriptor }) => {

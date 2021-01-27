@@ -3,6 +3,8 @@ import EntityDescriptor, { PROPERTY_DECORATOR_FUNC } from '../../lib/EntityDescr
 
 /**
  * Metadata description for a property.
+ * 
+ * @param description - Notes about the property
  */
 export default function Description( description: string ): PROPERTY_DECORATOR_FUNC {
     return EntityDescriptor.collectProperty<BasicPropertyDescriptor>(({ descriptor }) => {
