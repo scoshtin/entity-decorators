@@ -1,7 +1,5 @@
 import AbstractPropertyDescriptor from './AbstractPropertyDescriptor'
-
-type KNOWN_FORMATS = 'email' | 'phone' | 'url'
-export { KNOWN_FORMATS }
+import { StringFormats } from './StringFormats'
 
 export default class BasicPropertyDescriptor extends AbstractPropertyDescriptor {
 
@@ -19,7 +17,7 @@ export default class BasicPropertyDescriptor extends AbstractPropertyDescriptor 
     positiveValue?: boolean
 
     description?: string
-    stringFormat?: 'email' | 'url' | 'iso8601date'
+    stringFormat?: StringFormats
 
     scopes?: string[]
 }

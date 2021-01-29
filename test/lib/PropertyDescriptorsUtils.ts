@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { expect } from 'chai'
-import { KNOWN_FORMATS } from '../../src/lib/BasicPropertyDescriptor'
+import { StringFormats } from '../../src/lib/StringFormats'
 import EntityDescriptor from '../../src/lib/EntityDescriptor'
 import EntityPropertyDescriptors from '../../src/lib/EntityDescriptor'
 
@@ -40,7 +40,7 @@ type AssertEnumerationValuesPropertyCollectedParams = AssertPropertyCollectedPar
 }
 
 type AssertStringFormatCollectedParams = AssertPropertyCollectedParams & {
-    expectedStringFormat: KNOWN_FORMATS | undefined,
+    expectedStringFormat: StringFormats | undefined,
     expectedItemType?: (new(...args: any[]) => any) | undefined
 }
 
@@ -62,8 +62,6 @@ export function assertPropertyCollected( options: AssertPropertyCollectedParams 
     expect(Object.keys(descriptors.descriptors)).to.have.lengthOf(1)
 
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
-    if( !childrenDescriptor ) throw new Error(`You've used the wrong property name: ${options.propertyKey} !== ${Object.keys(descriptors.descriptors)[0]}`)
-
     expect(childrenDescriptor.definedIn).to.equal(options.Clazz.name)
     expect(childrenDescriptor.propertyKey).to.equal(options.propertyKey)
     expect(childrenDescriptor.propertyType).to.equal(options.propertyType)

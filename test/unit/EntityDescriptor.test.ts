@@ -135,4 +135,15 @@ describe( 'EntityDescriptor', () => {
         expect(JSON.stringify(classDescriptors)).to.equal(JSON.stringify(instanceDescriptors))
     })
 
+    it('Doesn\'t explode when you pass an undecorated class', function() {
+        class SomeClass {
+            someString1?: string
+            someString2?: number
+        }
+
+        const classDescriptors = EntityDescriptor.getDescriptorsForClass(SomeClass)
+        expect(classDescriptors.name).to.equal('SomeClass')
+        expect(Object.keys(classDescriptors.descriptors)).to.have.lengthOf(0)
+    })
+
 })

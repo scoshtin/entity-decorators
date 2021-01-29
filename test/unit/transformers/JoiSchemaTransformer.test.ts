@@ -25,6 +25,27 @@ type JoiDescribedSchema = {
 
 describe( 'JoiSchemaTransformer', () => {
 
+    it('works with instances', function(){
+        class StringClass {
+            @Required()
+            stringProperty?: string
+        }
+
+        const transformer = new JoiSchemaTransformer()
+        const schema = transformer.tranformFromEntityInstance( new StringClass() )
+
+        const describedSchema = schema.describe() as JoiDescribedSchema
+        expect(describedSchema.type).to.equal('object')
+
+        const flags = describedSchema.flags as { label: string }
+        expect(flags.label).to.equal('StringClass')
+
+        expect(Object.keys(describedSchema.keys)).to.have.lengthOf(1)
+
+        const stringDateKey = describedSchema.keys.stringProperty
+        expect(stringDateKey.type).to.equal('string')
+    })
+
     describe('array properties', function(){
 
         it('generates schemas for objects with arrays of other objects', function() {
@@ -100,6 +121,40 @@ describe( 'JoiSchemaTransformer', () => {
             const childrenRule = childrenKey?.rules?.[0]
             expect(childrenRule?.name).to.equal('min')
             expect(childrenRule?.args.limit).to.equal(3)
+        })
+
+        it('MaximumLength works for arrays', function() {
+            class Child {
+                @Required()
+                shitCount?: number
+            }
+    
+            class Parent {
+                @MaximumLength(7)
+                @ArrayItems(Child)
+                children?: Child[]
+            }
+    
+            const transformer = new JoiSchemaTransformer()
+            const schema = transformer.tranformFromEntityClass( Parent )
+    
+            const describedSchema = schema.describe() as JoiDescribedSchema
+            expect(describedSchema.type).to.equal('object')
+    
+            const flags = describedSchema.flags as { label: string }
+            expect(flags.label).to.equal('Parent')
+    
+            expect(Object.keys(describedSchema.keys)).to.have.lengthOf(1)
+    
+            const childrenKey = describedSchema.keys.children
+            expect(childrenKey.type).to.equal('array')
+            expect(childrenKey.flags?.label).to.equal('children')
+            
+            expect(childrenKey.rules).to.have.lengthOf(1)
+
+            const childrenRule = childrenKey?.rules?.[0]
+            expect(childrenRule?.name).to.equal('max')
+            expect(childrenRule?.args.limit).to.equal(7)
         })
 
     })

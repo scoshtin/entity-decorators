@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import BasicPropertyDescriptor from './BasicPropertyDescriptor'
 import AbstractPropertyDescriptor from './AbstractPropertyDescriptor'
 
 const PROPERTY_COLLECTOR_METADATA_KEY = Symbol('PROPERTY_COLLECTOR_METADATA_KEY')
@@ -26,7 +25,7 @@ export default abstract class AbstractEntityDescriptor<T extends AbstractPropert
     }
 
     static get PropertyDescriptorType(): Class {
-        return BasicPropertyDescriptor
+        throw new Error(`Must be overridden by subclasses`)
     }
 
     static construct( _name: string, _PropertyDescriptorType: Class ): AbstractEntityDescriptor<any> {
@@ -126,7 +125,7 @@ export default abstract class AbstractEntityDescriptor<T extends AbstractPropert
 
         // This gets hit when the target is not decorated
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        return this.construct( this.objectName(target.name), this.PropertyDescriptorType ) as AbstractEntityDescriptor<T>
+        return this.construct( this.objectName(target), this.PropertyDescriptorType ) as AbstractEntityDescriptor<T>
     }
 
 }
