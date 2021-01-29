@@ -70,6 +70,11 @@ fastify.post('/post', {
 })
 ```
 
+## Installing
+
+Install from npm: `npm i @general-galactic/entity-decorators`.
+
+
 ## Decorators
 
 ### General
