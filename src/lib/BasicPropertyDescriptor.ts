@@ -19,7 +19,7 @@ export default class BasicPropertyDescriptor extends AbstractPropertyDescriptor 
     positiveValue?: boolean
 
     description?: string
-    stringFormat?: 'email' | 'phone' | 'url' | 'iso8601date'
+    stringFormat?: 'email' | 'url' | 'iso8601date'
 
     scopes?: string[]
 }

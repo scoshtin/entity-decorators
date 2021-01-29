@@ -15,7 +15,6 @@ import MinimumLength from './decorators/basic/MinimumLength'
 import MinimumValue from './decorators/basic/MinimumValue'
 import NegativeValue from './decorators/basic/NegativeValue'
 import Optional from './decorators/basic/Optional'
-import Phone from './decorators/basic/Phone'
 import PositiveValue from './decorators/basic/PositiveValue'
 import Url from './decorators/basic/Url'
 import Scope from './decorators/scopes/Scope'
@@ -34,7 +33,6 @@ export {
     MinimumValue,
     NegativeValue,
     Optional,
-    Phone,
     PositiveValue,
     Required,
     SubObject,

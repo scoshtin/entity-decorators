@@ -1,6 +1,13 @@
 import JoiSchemaTransformer from '../../../src/transformers/JoiSchemaTransformer'
-import { ArrayItems, ISO8601Date, Required } from '../../../src'
+import { ArrayItems, Email, ISO8601Date, MaximumLength, MinimumLength, Required } from '../../../src'
 import { expect } from 'chai'
+
+type JoiRule = {
+    name: string
+    args: {
+        limit: number
+    }
+}
 
 type JoiDescribedSchema = {
     type: string,
@@ -12,7 +19,8 @@ type JoiDescribedSchema = {
     items?: JoiDescribedSchema[],
     keys: {
         [key: string]: JoiDescribedSchema
-    }
+    },
+    rules?: JoiRule[]
 }
 
 describe( 'JoiSchemaTransformer', () => {
@@ -100,6 +108,192 @@ describe( 'JoiSchemaTransformer', () => {
         const stringDateKey = describedSchema.keys.stringDate
         expect(stringDateKey.type).to.equal('date')
         expect(stringDateKey.flags?.format).to.equal('iso')
+    })
+
+    describe('string properties', function(){
+
+        it('handles required string properties', function(){
+            class StringClass {
+                @Required()
+                stringProperty?: string
+            }
+    
+            const transformer = new JoiSchemaTransformer()
+            const schema = transformer.tranformFromEntityClass( StringClass )
+    
+            const describedSchema = schema.describe() as JoiDescribedSchema
+            expect(describedSchema.type).to.equal('object')
+    
+            const flags = describedSchema.flags as { label: string }
+            expect(flags.label).to.equal('StringClass')
+    
+            expect(Object.keys(describedSchema.keys)).to.have.lengthOf(1)
+    
+            const stringDateKey = describedSchema.keys.stringProperty
+            expect(stringDateKey.type).to.equal('string')
+        })
+
+        it('MinimumLength works for strings', function(){
+            class StringClass {
+                @MinimumLength(10)
+                stringProperty?: string
+            }
+    
+            const transformer = new JoiSchemaTransformer()
+            const schema = transformer.tranformFromEntityClass( StringClass )
+    
+            const describedSchema = schema.describe() as JoiDescribedSchema
+            expect(describedSchema.type).to.equal('object')
+    
+            const flags = describedSchema.flags as { label: string }
+            expect(flags.label).to.equal('StringClass')
+    
+            expect(Object.keys(describedSchema.keys)).to.have.lengthOf(1)
+    
+            const stringDateKey = describedSchema.keys.stringProperty
+            expect(stringDateKey.type).to.equal('string')
+
+            expect(stringDateKey.rules).to.have.length(1)
+
+            const minimumRule = stringDateKey.rules?.[0]
+            expect(minimumRule?.name).to.equal('min')
+            expect(minimumRule?.args.limit).to.equal(10)
+        })
+
+        it('MaximumLength works for strings', function(){
+            class StringClass {
+                @MaximumLength(10)
+                stringProperty?: string
+            }
+    
+            const transformer = new JoiSchemaTransformer()
+            const schema = transformer.tranformFromEntityClass( StringClass )
+    
+            const describedSchema = schema.describe() as JoiDescribedSchema
+            expect(describedSchema.type).to.equal('object')
+    
+            const flags = describedSchema.flags as { label: string }
+            expect(flags.label).to.equal('StringClass')
+    
+            expect(Object.keys(describedSchema.keys)).to.have.lengthOf(1)
+    
+            const stringDateKey = describedSchema.keys.stringProperty
+            expect(stringDateKey.type).to.equal('string')
+
+            expect(stringDateKey.rules).to.have.length(1)
+
+            const minimumRule = stringDateKey.rules?.[0]
+            expect(minimumRule?.name).to.equal('max')
+            expect(minimumRule?.args.limit).to.equal(10)
+        })
+
+        it('MinimumLength & MaximumLength works together', function(){
+            class StringClass {
+                @MinimumLength(3)
+                @MaximumLength(7)
+                stringProperty?: string
+            }
+    
+            const transformer = new JoiSchemaTransformer()
+            const schema = transformer.tranformFromEntityClass( StringClass )
+    
+            const describedSchema = schema.describe() as JoiDescribedSchema
+            expect(describedSchema.type).to.equal('object')
+    
+            const flags = describedSchema.flags as { label: string }
+            expect(flags.label).to.equal('StringClass')
+    
+            expect(Object.keys(describedSchema.keys)).to.have.lengthOf(1)
+    
+            const stringDateKey = describedSchema.keys.stringProperty
+            expect(stringDateKey.type).to.equal('string')
+
+            expect(stringDateKey.rules).to.have.length(2)
+
+            const minimumRule = stringDateKey.rules?.[0]
+            expect(minimumRule?.name).to.equal('min')
+            expect(minimumRule?.args.limit).to.equal(3)
+
+            const maximumRule = stringDateKey.rules?.[1]
+            expect(maximumRule?.name).to.equal('max')
+            expect(maximumRule?.args.limit).to.equal(7)
+        })
+
+        it('Email format works', function(){
+            class StringClass {
+                @Email()
+                stringProperty?: string
+            }
+    
+            const transformer = new JoiSchemaTransformer()
+            const schema = transformer.tranformFromEntityClass( StringClass )
+    
+            const describedSchema = schema.describe() as JoiDescribedSchema
+            expect(describedSchema.type).to.equal('object')
+    
+            const flags = describedSchema.flags as { label: string }
+            expect(flags.label).to.equal('StringClass')
+    
+            expect(Object.keys(describedSchema.keys)).to.have.lengthOf(1)
+    
+            const stringDateKey = describedSchema.keys.stringProperty
+            expect(stringDateKey.type).to.equal('string')
+            expect(stringDateKey.flags?.label).to.equal('stringProperty')
+            
+            expect(stringDateKey.rules).to.have.length(1)
+
+            const rule = stringDateKey.rules?.[0]
+            expect(rule?.name).to.equal('email')
+        })
+
+        it('ISO8601Date format works', function(){
+            class StringClass {
+                @ISO8601Date()
+                stringProperty?: string
+            }
+    
+            const transformer = new JoiSchemaTransformer()
+            const schema = transformer.tranformFromEntityClass( StringClass )
+    
+            const describedSchema = schema.describe() as JoiDescribedSchema
+            expect(describedSchema.type).to.equal('object')
+    
+            const flags = describedSchema.flags as { label: string }
+            expect(flags.label).to.equal('StringClass')
+    
+            expect(Object.keys(describedSchema.keys)).to.have.lengthOf(1)
+    
+            const stringDateKey = describedSchema.keys.stringProperty
+            expect(stringDateKey.type).to.equal('date')
+            expect(stringDateKey.flags?.label).to.equal('stringProperty')
+            expect(stringDateKey.flags?.format).to.equal('iso')
+        })
+
+    })
+
+    describe('boolean properties', function(){
+
+        it('handles required boolean properties', function(){
+            class BooleanClass {
+                @Required()
+                booleanProperty?: boolean
+            }
+    
+            const transformer = new JoiSchemaTransformer()
+            const schema = transformer.tranformFromEntityClass( BooleanClass )
+    
+            const describedSchema = schema.describe() as JoiDescribedSchema
+            expect(describedSchema.type).to.equal('object')
+    
+            const flags = describedSchema.flags as { label: string }
+            expect(flags.label).to.equal('BooleanClass')
+    
+            expect(Object.keys(describedSchema.keys)).to.have.lengthOf(1)
+    
+            const stringDateKey = describedSchema.keys.booleanProperty
+            expect(stringDateKey.type).to.equal('boolean')
+        })
+
     })
 
 })

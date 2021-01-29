@@ -48,7 +48,7 @@ class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
     private processStringProperty( descriptor: BasicPropertyDescriptor ): AnySchema {
         if( descriptor.stringFormat === 'iso8601date' ) {
             return Joi.date().iso()
-        }
+        } 
 
         let schema = Joi.string()
 
@@ -58,6 +58,12 @@ class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
 
         if( descriptor.maxLength ) {
             schema = schema.max( descriptor.maxLength )
+        }
+
+        if( descriptor.stringFormat === 'email' ) {
+            schema = schema.email()
+        }else if( descriptor.stringFormat === 'url' ) {
+            schema = schema.uri()
         }
 
         return schema
