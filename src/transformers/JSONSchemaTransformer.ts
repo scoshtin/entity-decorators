@@ -1,15 +1,16 @@
-import EntityPropertyDescriptors from '../lib/EntityDescriptor'
-import PropertyCollector from '../lib/PropertyCollector'
-import BasicPropertyDescriptor from '../lib/BasicPropertyDescriptor'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
+import EntityDescriptor from '../lib/EntityDescriptor'
 
 export default class JoiSchemaTransformer {
 
     buildSchemaFrom( target: any ): Record<string, unknown> {
-        const descriptors = PropertyCollector.getDescriptorsForClass<BasicPropertyDescriptor>( target )
+        const descriptors = EntityDescriptor.getDescriptorsForClass( target )
         return this.buildSchemaFromDescriptors( descriptors )
     }
 
-    buildSchemaFromDescriptors( descriptors: EntityPropertyDescriptors<BasicPropertyDescriptor> ): Record<string, unknown> {
+    buildSchemaFromDescriptors( _descriptors: EntityDescriptor ): Record<string, unknown> {
         throw new Error('Not implemented yet')
     }
 

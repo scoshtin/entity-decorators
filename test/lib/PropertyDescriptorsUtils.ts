@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { expect } from 'chai'
-import BasicPropertyDescriptor, { KNOWN_FORMATS } from '../../src/lib/BasicPropertyDescriptor'
+import { KNOWN_FORMATS } from '../../src/lib/BasicPropertyDescriptor'
 import EntityDescriptor from '../../src/lib/EntityDescriptor'
-//import PropertyCollector from '../../src/lib/PropertyCollector'
 import EntityPropertyDescriptors from '../../src/lib/EntityDescriptor'
 
 type AssertPropertyCollectedParams = {

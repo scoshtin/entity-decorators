@@ -1,5 +1,4 @@
 import EntityDescriptor from '../lib/EntityDescriptor'
-import { Class } from '../lib/AbstractEntityDescriptor'
 import AbstractTransformer from './AbstractTransformer'
 import BasicPropertyDescriptor from '../lib/BasicPropertyDescriptor'
 
@@ -12,11 +11,11 @@ class EntityScope {
         this.scope = scope
     }
 
-    addProperty( propertyKey: string ) {
+    addProperty( propertyKey: string ): void {
         this.properties.push( propertyKey )
     }
 
-    mergeSubScope( propertyKey: string, subScope: EntityScope ) {
+    mergeSubScope( propertyKey: string, subScope: EntityScope ): void {
         if( subScope.scope !== this.scope ) return // only accept matching scopes
         for( const subPropertyKey of subScope.properties ) {
             this.addProperty(`${propertyKey}.${subPropertyKey}`)
@@ -30,7 +29,7 @@ export { EntityScope }
 export default class PropertyScopesTransformer extends AbstractTransformer<EntityScope[]> {
     
     tranformFromDescriptors(entityDescriptor: EntityDescriptor): EntityScope[] {
-        let allScopes: Record<string, EntityScope> = {}
+        const allScopes: Record<string, EntityScope> = {}
 
         for( const propertyDescriptor of entityDescriptor ) {
             this.recordScopes( allScopes, propertyDescriptor )
@@ -54,11 +53,11 @@ export default class PropertyScopesTransformer extends AbstractTransformer<Entit
         }
     }
 
-    shouldRecurseIntoChildProperties( propertyDescriptor: BasicPropertyDescriptor ): Boolean {
+    shouldRecurseIntoChildProperties( propertyDescriptor: BasicPropertyDescriptor ): boolean {
         return propertyDescriptor.isArrayWithCustomType || propertyDescriptor.isCustomType
     }
 
-    processChildProperties( allScopes: Record<string, EntityScope>, propertyDescriptor: BasicPropertyDescriptor ){
+    processChildProperties( allScopes: Record<string, EntityScope>, propertyDescriptor: BasicPropertyDescriptor ): void {
          // TODO: handle child objects here by dotting the paths
          const subScopes = this.tranformFromEntityClass( propertyDescriptor.itemType )
          for( const subScope of subScopes ) {

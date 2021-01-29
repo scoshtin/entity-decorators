@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { BasicPropertyDescriptor, Required, ArrayItems, EntityDescriptor } from '../../src'
+import { Required, ArrayItems, EntityDescriptor } from '../../src'
 
 describe( 'EntityDescriptor', () => {
 

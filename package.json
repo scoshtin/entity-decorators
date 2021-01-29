@@ -7,24 +7,22 @@
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "scripts": {
     "test": "NODE_ENV=test mocha -r ts-node/register \"test/**/*.test.ts\"",
     "coverage": "NODE_ENV=test nyc mocha -r ts-node/register -r source-map-support/register --full-trace \"test/**/*.test.ts\"",
-    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint"
-    }
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "name": "entity-decorators",
   "author": "General Galactic",
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.2.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
     "chai": "^4.2.0",
+    "eslint": "^7.18.0",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
     "source-map-support": "^0.5.19",

@@ -1,4 +1,3 @@
-import { Class } from '../../lib/AbstractEntityDescriptor'
 import BasicPropertyDescriptor from '../../lib/BasicPropertyDescriptor'
 import EntityDescriptor, { PROPERTY_DECORATOR_FUNC } from '../../lib/EntityDescriptor'
 
