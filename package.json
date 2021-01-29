@@ -3,11 +3,8 @@
   "author": "General Galactic",
   "version": "0.1.4",
   "license": "MIT",
-  "publishConfig": {
-    "@general-galactic:registry": "https://registry.npmjs.org/",
-    "access": "public"
-  },
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
   "files": [
     "src"
@@ -19,7 +16,9 @@
     "test": "NODE_ENV=test mocha -r ts-node/register \"test/**/*.test.ts\"",
     "coverage": "NODE_ENV=test nyc mocha -r ts-node/register -r source-map-support/register --full-trace \"test/**/*.test.ts\"",
     "coverage-lcov": "NODE_ENV=test nyc --reporter=lcov mocha -r ts-node/register -r source-map-support/register --full-trace \"test/**/*.test.ts\"",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "build": "tsc",
+    "prepublish": "tsc"
   },
   "devDependencies": {
     "@types/chai": "^4.2.14",
