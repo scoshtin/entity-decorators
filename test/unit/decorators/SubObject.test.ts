@@ -77,7 +77,7 @@ describe( 'SubObject decorator', () => {
             }
         }catch( e ) {
             const error = e as Error
-            expect(error.message).to.equal('The SubObject decorator can only be applied to Object or Array properties.')
+            expect(error.message).to.equal('The SubObject decorator can only be applied to Object properties.')
         }
     })
 
@@ -90,7 +90,7 @@ describe( 'SubObject decorator', () => {
             }
         }catch( e ) {
             const error = e as Error
-            expect(error.message).to.equal('The SubObject decorator can only be applied to Arrays. Use @ArrayItems() instead.')
+            expect(error.message).to.equal('The SubObject decorator can only be applied to Objects. Use @ArrayItems() to decorate objects within arrays.')
         }
     })
 

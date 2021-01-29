@@ -33,7 +33,7 @@ class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
                 property = this.processArrayProperty( descriptor )
                 break
             default:
-                if( descriptor.itemType ) {
+                if( descriptor.isCustomType ) {
                     property = this.processObjectProperty( descriptor )
                 }
         }
@@ -108,8 +108,9 @@ class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
         return schema
     }
 
-    private processObjectProperty( _descriptor: BasicPropertyDescriptor ): ObjectSchema {
-        return Joi.object()
+    private processObjectProperty( descriptor: BasicPropertyDescriptor ): ObjectSchema {
+        const itemSchema = this.tranformFromEntityClass( descriptor.propertyType )
+        return itemSchema
     }
 
 }
