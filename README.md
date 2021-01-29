@@ -31,7 +31,3 @@
 
 ## Dates
 * `ISO8601Date` - A date field that should match the ISO8601 date format.
-
-## Other
-* `CustomSchema` - Provide your own Joi schema for property validation.
-* `SchemaOptions` - Provide Joi options to control validation for a single property.
