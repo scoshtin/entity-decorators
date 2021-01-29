@@ -1,4 +1,6 @@
 {
+  "name": "@general-galactic/entity-decorators",
+  "author": "General Galactic",
   "version": "0.1.1",
   "license": "MIT",
   "main": "src/index.js",
@@ -15,8 +17,6 @@
     "coverage-lcov": "NODE_ENV=test nyc --reporter=lcov mocha -r ts-node/register -r source-map-support/register --full-trace \"test/**/*.test.ts\"",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
-  "name": "entity-decorators",
-  "author": "General Galactic",
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.2.0",
