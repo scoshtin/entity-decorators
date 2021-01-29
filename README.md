@@ -11,7 +11,7 @@ export default class Entity {
     @MinimumLength(6)
     firstName: string
 
-    @Required()
+    @Optional()
     @MinimumValue(1)
     articleCount: number
 
@@ -19,6 +19,15 @@ export default class Entity {
     @Enumeration( UserTypes.member, UserTypes.owner )
     userType: UserTypes
 
+    @Required()
+    @SubObject( Address )
+    address: Address
+
+    @Required()
+    @ArrayItems( ContactMethod )
+    @MinimumLength(1)
+    contactMethods: ContactMethod[]
+    
 }
 ```
 
@@ -46,6 +55,7 @@ server.route({
         }
     },
     handler( request, h ) { ... }
+})
 ```
 
 **FASTIFY -> COMING SOON**
