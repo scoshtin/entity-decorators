@@ -90,7 +90,6 @@ Install from npm: `npm i @general-galactic/entity-decorators`.
 * `MaximumLength` - Maximum string length.
 * `Url` - A string that should match a url format.
 * `Email` - A string that should match an email format.
-* `Phone` - A string that should match a phone format.
 * `ISO8601Date` - A string that should match the ISO8601 date format.
 
 ### Arrays
