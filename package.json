@@ -12,6 +12,7 @@
   "scripts": {
     "test": "NODE_ENV=test mocha -r ts-node/register \"test/**/*.test.ts\"",
     "coverage": "NODE_ENV=test nyc mocha -r ts-node/register -r source-map-support/register --full-trace \"test/**/*.test.ts\"",
+    "coverage-lcov": "NODE_ENV=test nyc --reporter=lcov mocha -r ts-node/register -r source-map-support/register --full-trace \"test/**/*.test.ts\"",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "name": "entity-decorators",
