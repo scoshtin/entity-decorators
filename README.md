@@ -80,7 +80,7 @@ fastify.post('/post', {
 * `SubObject` - used to define to descend into and extract decorators from a sub objects.
 * `Scope` - define scopes which are groups of properties. e.g. public, private, etc. 
 
-## Strings
+### Strings
 * `MinimumLength` - Minimum string length.
 * `MaximumLength` - Maximum string length.
 * `Url` - A string that should match a url format.
@@ -88,16 +88,20 @@ fastify.post('/post', {
 * `Phone` - A string that should match a phone format.
 * `ISO8601Date` - A string that should match the ISO8601 date format.
 
-## Arrays
+### Arrays
 * `ArrayItems` - used to define the type of an array of objects. This is required to descend into and extract decorators from the sub objects.
 * `MinimumLength` - Minimum array length.
 * `MaximumLength` - Maximum array length.
 
-## Numbers
+### Numbers
 * `MinimumValue` - Minimum number value.
 * `MaximumValue` - Maximum number value.
 * `NegativeValue` - Negative number values only.
 * `PositiveValue` - Positive number values only.
 
-## Dates
+### Dates
 * `ISO8601Date` - A date field that should match the ISO8601 date format.
+
+## Contributing
+
+We'd love help fixing bugs and adding new capabilities. Send us a PR :)
