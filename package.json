@@ -19,9 +19,7 @@
     "test": "NODE_ENV=test mocha -r ts-node/register \"test/**/*.test.ts\"",
     "coverage": "NODE_ENV=test nyc mocha -r ts-node/register -r source-map-support/register --full-trace \"test/**/*.test.ts\"",
     "coverage-lcov": "NODE_ENV=test nyc --reporter=lcov mocha -r ts-node/register -r source-map-support/register --full-trace \"test/**/*.test.ts\"",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "prepublishOnly": "npm-multi-publish",
-    "postpublish": "npm-multi-publish"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "devDependencies": {
     "@types/chai": "^4.2.14",
@@ -31,7 +29,6 @@
     "chai": "^4.2.0",
     "eslint": "^7.18.0",
     "mocha": "^8.2.1",
-    "npm-multi-publish": "^2.0.0",
     "nyc": "^15.1.0",
     "source-map-support": "^0.5.19",
     "ts-node": "^9.1.1",
