@@ -3,6 +3,10 @@
   "author": "General Galactic",
   "version": "0.1.1",
   "license": "MIT",
+  "publishConfig": {
+    "@general-galactic:registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "main": "src/index.js",
   "type": "module",
   "files": [
