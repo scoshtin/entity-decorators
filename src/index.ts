@@ -19,9 +19,15 @@ import PositiveValue from './decorators/basic/PositiveValue'
 import Url from './decorators/basic/Url'
 import Scope from './decorators/scopes/Scope'
 
+import JoiSchemaTransformer from './transformers/JoiSchemaTransformer'
+// import JSONSchemaTransformer from './transformers/JSONSchemaTransformer'
+import PropertyScopesTransformer from './transformers/PropertyScopesTransformer'
+
 export {
     BasicPropertyDescriptor,
     EntityDescriptor,
+    JoiSchemaTransformer,
+    PropertyScopesTransformer,
     ArrayItems,
     Description,
     Email,
