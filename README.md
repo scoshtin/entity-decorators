@@ -4,7 +4,7 @@ This project contains a set of typescript decorators that allow you to mark up y
 can then use transformers to convert the decorators to things like json schemas and [Joi Schemas](https://joi.dev). You can also write your
 own decorators and transformers to do whatever you need. Here's what it looks like:
 
-```
+```javascript
 export default class Entity {
 
     @Required()
@@ -24,17 +24,17 @@ export default class Entity {
 
 You can then use this class to generate a schema using a tranformer like this:
 
-```
+```javascript
 const transformer = new JoiSchemaTransformer()
-const schema = transformer.tranformFromEntityClass( Parent )
-schema.validate( entity )
+const entityJoiSchema = transformer.tranformFromEntityClass( Entity )
+entityJoiSchema.validate( entity )
 ```
 
-If you use [Hapi](https://hapi.dev/tutorials/validation/?lang=en_US) or [Fastify](https://www.fastify.io/docs/latest/Validation-and-Serialization/) you can use transformers to generate schema for your routes. These schemas can also
+If you use [Hapi](https://hapi.dev/tutorials/validation/?lang=en_US) or [Fastify](https://www.fastify.io/docs/latest/Validation-and-Serialization/) you can use transformers to generate schemas for your routes. These schemas can even
 be used to generate OpenAPI documentation for your APIs:
 
-HAPI ( gives you runtime validation and Swagger or OpenAPI documentation ):
-```
+**HAPI ( gives you runtime validation and Swagger or OpenAPI documentation )**
+```javascript
 const transformer = new JoiSchemaTransformer()
 
 server.route({
@@ -48,8 +48,8 @@ server.route({
     handler( request, h ) { ... }
 ```
 
-FASTIFY: COMING SOON:
-```
+**FASTIFY -> COMING SOON**
+```javascript
 const transformer = new JsonSchemaTransformer()
 
 fastify.post('/post', {
