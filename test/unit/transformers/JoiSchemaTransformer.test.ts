@@ -185,7 +185,7 @@ describe( 'JoiSchemaTransformer', () => {
     
             const childKey = describedSchema.keys.child
             expect(childKey.type).to.equal('object')
-            expect(childKey.flags?.label).to.equal('child')
+            expect(childKey.flags?.label).to.equal('ChildClass')
             expect(Object.keys(childKey.keys)).to.have.lengthOf(1)
 
             const stringPropertyKey = childKey.keys.stringProperty

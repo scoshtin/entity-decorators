@@ -26,9 +26,9 @@ class EntityScope {
 
 export { EntityScope }
 
-export default class PropertyScopesTransformer extends AbstractTransformer<EntityScope[]> {
+export default class PropertyScopesTransformer<T = EntityScope[]> extends AbstractTransformer<T> {
     
-    tranformFromDescriptors(entityDescriptor: EntityDescriptor): EntityScope[] {
+    tranformFromDescriptors(entityDescriptor: EntityDescriptor<BasicPropertyDescriptor>): T {
         const allScopes: Record<string, EntityScope> = {}
 
         for( const propertyDescriptor of entityDescriptor ) {
@@ -42,7 +42,7 @@ export default class PropertyScopesTransformer extends AbstractTransformer<Entit
             const scope = allScopes[key]
             output.push( scope )
             return output
-        }, [] )
+        }, [] ) as unknown as T
     }
 
     recordScopes( allScopes: Record<string, EntityScope>, propertyDescriptor: BasicPropertyDescriptor ): void {
@@ -58,9 +58,8 @@ export default class PropertyScopesTransformer extends AbstractTransformer<Entit
     }
 
     processChildProperties( allScopes: Record<string, EntityScope>, propertyDescriptor: BasicPropertyDescriptor ): void {
-         // TODO: handle child objects here by dotting the paths
          const subScopes = this.tranformFromEntityClass( propertyDescriptor.itemType )
-         for( const subScope of subScopes ) {
+         for( const subScope of subScopes as unknown as EntityScope[] ) {
              const parentScope = this.findOrCreateScope( allScopes, subScope.scope )
              if( parentScope ) {
                  parentScope.mergeSubScope( propertyDescriptor.propertyKey, subScope )

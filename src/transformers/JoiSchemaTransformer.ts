@@ -1,29 +1,29 @@
-import Joi, { AnySchema, ObjectSchema } from 'joi'
+import Joi, { AnySchema } from 'joi'
 import BasicPropertyDescriptor from '../lib/BasicPropertyDescriptor'
 import AbstractTransformer from './AbstractTransformer'
 import EntityDescriptor from '../lib/EntityDescriptor'
-import { EntityTransformerOptions } from '../types'
+// import { EntityTransformerOptions } from '../types'
 
 
-class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
+class JoiSchemaTransformer<T extends AnySchema = AnySchema> extends AbstractTransformer<T> {
 
-    private options?: EntityTransformerOptions
+    // private options?: EntityTransformerOptions<AnySchema>
 
-    constructor( options?: EntityTransformerOptions ) {
-        super()
-        this.options = options
-    }
+    // constructor( options?: EntityTransformerOptions<AnySchema> ) {
+    //     super()
+    //     this.options = options
+    // }
 
-    tranformFromDescriptors(descriptors: EntityDescriptor): ObjectSchema {
+    tranformFromDescriptors(descriptors: EntityDescriptor<BasicPropertyDescriptor>): T {
         const schemas: Record<string, AnySchema> = {}
         for( const descriptor of descriptors ) {
             schemas[descriptor.propertyKey]  = this.processProperty( descriptor )
         }
-        return Joi.object(schemas).label(descriptors.name)
+        return Joi.object(schemas).label(descriptors.name) as unknown as T
     }
 
-    private processProperty( descriptor: BasicPropertyDescriptor ): AnySchema {
-        let property = null
+    processProperty( descriptor: BasicPropertyDescriptor ): T {
+        let property:AnySchema | undefined
         switch( descriptor.propertyTypeName ) {
             case 'String':
                 property = this.processStringProperty( descriptor )
@@ -49,13 +49,16 @@ class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
 
         // things common to all schemas - e.g. @Required
         if( descriptor.required ) property = property.required()
-        
-        return property.label( descriptor.propertyKey )
+
+        // I'm unhappy about using $_getFlag() but it seems like the only way to check if the schema already has a label
+        if( !property.$_getFlag('label') ) property = property.label( descriptor.propertyKey )
+
+        return property as unknown as T
     }
 
-    private processStringProperty( descriptor: BasicPropertyDescriptor ): AnySchema {
+    processStringProperty( descriptor: BasicPropertyDescriptor ): T {
         if( descriptor.stringFormat === 'iso8601date' ) {
-            return Joi.date().iso()
+            return Joi.date().iso() as unknown as T
         } 
 
         let schema = Joi.string()
@@ -74,30 +77,40 @@ class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
             schema = schema.uri()
         }
 
-        return schema
+        // let output: AnySchema = schema
+        // if( descriptor.custom && this.options?.customHandlers ) {
+        //     for( const customDecorator in this.options.customHandlers ) {
+        //         const handlerFuncs = this.options.customHandlers[customDecorator]
+        //         for( const customDecoratorHandler of handlerFuncs ) {
+        //             output = customDecoratorHandler( output, descriptor )
+        //         }
+        //     }
+        // }
+
+        return schema as unknown as T
     }
 
-    private processNumberProperty( _descriptor: BasicPropertyDescriptor ): AnySchema {
+    processNumberProperty( _descriptor: BasicPropertyDescriptor ): T {
         const schema = Joi.number()
-        return schema
+        return schema as unknown as T
     }
 
-    private processBooleanProperty( _descriptor: BasicPropertyDescriptor ): AnySchema {
+    processBooleanProperty( _descriptor: BasicPropertyDescriptor ): T {
         const schema = Joi.boolean()
-        return schema
+        return schema as unknown as T
     }
 
-    private processDateProperty( descriptor: BasicPropertyDescriptor ): AnySchema {
+    processDateProperty( descriptor: BasicPropertyDescriptor ): T {
         let schema = Joi.date()
 
         if( descriptor.stringFormat === 'iso8601date' ) {
             schema = schema.iso()
         }
 
-        return schema
+        return schema as unknown as T
     }
 
-    private processArrayProperty( descriptor: BasicPropertyDescriptor ): AnySchema {
+    processArrayProperty( descriptor: BasicPropertyDescriptor ): T {
         let schema = Joi.array()
 
         if( descriptor.itemType ) {
@@ -113,10 +126,10 @@ class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
             schema = schema.max( descriptor.maxLength )
         }
 
-        return schema
+        return schema as unknown as T
     }
 
-    private processObjectProperty( descriptor: BasicPropertyDescriptor ): ObjectSchema {
+    processObjectProperty( descriptor: BasicPropertyDescriptor ): T {
         const itemSchema = this.tranformFromEntityClass( descriptor.propertyType )
         return itemSchema
     }

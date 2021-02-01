@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export declare type PropertyTypes = 'String' | 'Number' | 'Boolean' | 'Date' | 'Array' | 'Custom'
+import BasicPropertyDescriptor from "./lib/BasicPropertyDescriptor";
 
-export declare type DecoratorHandlerFunc = () => void
+// export declare type PropertyTypes = 'String' | 'Number' | 'Boolean' | 'Date' | 'Array' | 'Custom'
 
-export declare type EntityTransformerOptions = {
-    customHandlers: Record<keyof PropertyTypes, DecoratorHandlerFunc[]>
+export declare type DecoratorHandlerFunc<T> = ( collector: T, descriptor: BasicPropertyDescriptor ) => T
+
+export declare type EntityTransformerOptions<T> = {
+    customHandlers?: Record<string, DecoratorHandlerFunc<T>[]>
 }
 
 export declare type PropertyDecoratorFunc = (target: any, propertyKey: string ) => void

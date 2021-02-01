@@ -1,5 +1,6 @@
 import { InstanceOfClass, Class } from '../types'
 import EntityDescriptor from '../lib/EntityDescriptor'
+import BasicPropertyDescriptor from '../lib/BasicPropertyDescriptor'
 
 export default abstract class AbstractTransformer<T> {
 
@@ -13,6 +14,6 @@ export default abstract class AbstractTransformer<T> {
         return this.tranformFromDescriptors( descriptors )
     }
 
-    abstract tranformFromDescriptors( descriptors: EntityDescriptor ): T
+    abstract tranformFromDescriptors( descriptors: EntityDescriptor<BasicPropertyDescriptor> ): T
 
 }
