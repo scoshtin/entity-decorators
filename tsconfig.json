@@ -9,6 +9,7 @@
     "module": "commonjs",
     "target": "ES2017",
     "rootDir": ".",
+    "baseUrl": ".",
     "outDir": "./dist",
     "importHelpers": true,
     // output .d.ts declaration files for consumers
