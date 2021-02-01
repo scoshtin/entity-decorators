@@ -23,6 +23,8 @@ import JoiSchemaTransformer from './transformers/JoiSchemaTransformer'
 // import JSONSchemaTransformer from './transformers/JSONSchemaTransformer'
 import PropertyScopesTransformer from './transformers/PropertyScopesTransformer'
 
+export * from './types'
+
 export {
     BasicPropertyDescriptor,
     EntityDescriptor,

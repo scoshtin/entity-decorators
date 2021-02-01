@@ -1,18 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
+import { Class, InstanceOfClass, PropertyDecoratorFunc } from '../types'
 import AbstractPropertyDescriptor from './AbstractPropertyDescriptor'
 
 const PROPERTY_COLLECTOR_METADATA_KEY = Symbol('PROPERTY_COLLECTOR_METADATA_KEY')
 
-declare type PROPERTY_DECORATOR_FUNC = (target: any, propertyKey: string ) => void
-declare type Class<T = any> = new (...args: any[]) => T;
-declare type InstanceOfClass = InstanceType<Class>
 
-export { PROPERTY_DECORATOR_FUNC, Class, InstanceOfClass }
-
-
-export default abstract class AbstractEntityDescriptor<T extends AbstractPropertyDescriptor> {
+export default abstract class AbstractEntityDescriptor<T extends AbstractPropertyDescriptor> implements Iterable<T> {
 
     name: string
     descriptors: Record<string, T> = {}
@@ -57,7 +52,7 @@ export default abstract class AbstractEntityDescriptor<T extends AbstractPropert
         this.descriptors = {...this.descriptors, ...itemToMerge.descriptors}
     }
 
-    [Symbol.iterator]() {
+    [Symbol.iterator](): Iterator<T> {
         const length = this.orderedDescriptorKeys.length
         let index = 0
         return {
@@ -76,7 +71,7 @@ export default abstract class AbstractEntityDescriptor<T extends AbstractPropert
         descriptor: T,
         target: Class,
         propertyKey: string,
-        descriptors: AbstractEntityDescriptor<T>}) => void ): PROPERTY_DECORATOR_FUNC {
+        descriptors: AbstractEntityDescriptor<T>}) => void ): PropertyDecoratorFunc {
 
         return (target: Class, propertyKey: string ): void => {
             const descriptors = this.getPropertyDescriptorsForObject<T>( target )

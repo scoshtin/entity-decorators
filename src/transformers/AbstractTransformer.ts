@@ -1,4 +1,4 @@
-import { InstanceOfClass, Class } from '../lib/AbstractEntityDescriptor'
+import { InstanceOfClass, Class } from '../types'
 import EntityDescriptor from '../lib/EntityDescriptor'
 
 export default abstract class AbstractTransformer<T> {

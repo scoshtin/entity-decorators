@@ -1,7 +1,6 @@
 import BasicPropertyDescriptor from './BasicPropertyDescriptor'
-import AbstractEntityDescriptor, { Class, InstanceOfClass, PROPERTY_DECORATOR_FUNC } from './AbstractEntityDescriptor'
-
-export { PROPERTY_DECORATOR_FUNC }
+import AbstractEntityDescriptor from './AbstractEntityDescriptor'
+import { Class, InstanceOfClass } from '../types'
 
 
 export default class EntityDescriptor extends AbstractEntityDescriptor<BasicPropertyDescriptor> {

@@ -1,1 +1,0 @@
-export type StringFormats = 'email' | 'phone' | 'url' | 'iso8601date'

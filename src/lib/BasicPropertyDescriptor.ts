@@ -1,5 +1,5 @@
+import { StringFormats } from '../types'
 import AbstractPropertyDescriptor from './AbstractPropertyDescriptor'
-import { StringFormats } from './StringFormats'
 
 export default class BasicPropertyDescriptor extends AbstractPropertyDescriptor {
 

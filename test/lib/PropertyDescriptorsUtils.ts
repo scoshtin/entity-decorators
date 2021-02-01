@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { expect } from 'chai'
-import { StringFormats } from '../../src/lib/StringFormats'
-import EntityDescriptor from '../../src/lib/EntityDescriptor'
-import EntityPropertyDescriptors from '../../src/lib/EntityDescriptor'
+import { EntityDescriptor, StringFormats } from '../../src'
 
 type AssertPropertyCollectedParams = {
     Clazz: new (...args: any[]) => any,
@@ -56,7 +54,7 @@ export {
     AssertStringFormatCollectedParams
 }
 
-export function assertPropertyCollected( options: AssertPropertyCollectedParams ): EntityPropertyDescriptors {
+export function assertPropertyCollected( options: AssertPropertyCollectedParams ): EntityDescriptor {
     const descriptors = EntityDescriptor.getDescriptorsForClass(options.Clazz)
     expect(descriptors.name).to.equal(options.Clazz.name)
     expect(Object.keys(descriptors.descriptors)).to.have.lengthOf(1)
@@ -70,84 +68,84 @@ export function assertPropertyCollected( options: AssertPropertyCollectedParams 
     return descriptors
 }
 
-export function assertMinimumLengthCollected( options: AssertMinimumLengthCollectedParams ): EntityPropertyDescriptors {
+export function assertMinimumLengthCollected( options: AssertMinimumLengthCollectedParams ): EntityDescriptor {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.minLength).to.equal(options.expectedMinimumLength)
     return descriptors
 }
 
-export function assertMaximumLengthCollected( options: AssertMaximumLengthCollectedParams ): EntityPropertyDescriptors {
+export function assertMaximumLengthCollected( options: AssertMaximumLengthCollectedParams ): EntityDescriptor {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.maxLength).to.equal(options.expectedMaximumLength)
     return descriptors
 }
 
-export function assertMinimumValueCollected( options: AssertMinimumValueCollectedParams ): EntityPropertyDescriptors {
+export function assertMinimumValueCollected( options: AssertMinimumValueCollectedParams ): EntityDescriptor {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.minimumValue).to.equal(options.expectedMinimumValue)
     return descriptors
 }
 
-export function assertMaximumValueCollected( options: AssertMaximumValueCollectedParams ): EntityPropertyDescriptors {
+export function assertMaximumValueCollected( options: AssertMaximumValueCollectedParams ): EntityDescriptor {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.maximumValue).to.equal(options.expectedMaximumValue)
     return descriptors
 }
 
-export function assertDescriptionCollected( options: AssertDescriptionCollectedParams ): EntityPropertyDescriptors {
+export function assertDescriptionCollected( options: AssertDescriptionCollectedParams ): EntityDescriptor {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.description).to.equal(options.expectedDescription)
     return descriptors
 }
 
-export function assertRequiredCollected( options: AssertPropertyCollectedParams ): EntityPropertyDescriptors {
+export function assertRequiredCollected( options: AssertPropertyCollectedParams ): EntityDescriptor {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.required).to.be.true
     return descriptors
 }
 
-export function assertNotRequiredCollected( options: AssertPropertyCollectedParams ): EntityPropertyDescriptors {
+export function assertNotRequiredCollected( options: AssertPropertyCollectedParams ): EntityDescriptor {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.required).to.be.false
     return descriptors
 }
 
-export function assertArrayItemsTypeCollected( options: AssertArrayItemsPropertyCollectedParams ): EntityPropertyDescriptors {
+export function assertArrayItemsTypeCollected( options: AssertArrayItemsPropertyCollectedParams ): EntityDescriptor {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.itemType).to.equal(options.itemType)
     return descriptors
 }
 
-export function assertEnumerationValuesCollected( options: AssertEnumerationValuesPropertyCollectedParams ): EntityPropertyDescriptors {
+export function assertEnumerationValuesCollected( options: AssertEnumerationValuesPropertyCollectedParams ): EntityDescriptor {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.enumerationValues).to.deep.equal(options.expectedEnumerationValues)
     return descriptors
 }
 
-export function assertNegativeValueCollected( options: AssertPropertyCollectedParams ): EntityPropertyDescriptors {
+export function assertNegativeValueCollected( options: AssertPropertyCollectedParams ): EntityDescriptor {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.negativeValue).to.be.true
     return descriptors
 }
 
-export function assertPositiveValueCollected( options: AssertPropertyCollectedParams ): EntityPropertyDescriptors {
+export function assertPositiveValueCollected( options: AssertPropertyCollectedParams ): EntityDescriptor {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.positiveValue).to.be.true
     return descriptors
 }
 
-export function assertStringFormatCollected( options: AssertStringFormatCollectedParams ): EntityPropertyDescriptors {
+export function assertStringFormatCollected( options: AssertStringFormatCollectedParams ): EntityDescriptor {
     const descriptors = assertPropertyCollected( options )
     const childrenDescriptor = descriptors.descriptors[options.propertyKey]
     expect(childrenDescriptor.stringFormat).to.equal(options.expectedStringFormat)

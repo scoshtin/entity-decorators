@@ -2,9 +2,17 @@ import Joi, { AnySchema, ObjectSchema } from 'joi'
 import BasicPropertyDescriptor from '../lib/BasicPropertyDescriptor'
 import AbstractTransformer from './AbstractTransformer'
 import EntityDescriptor from '../lib/EntityDescriptor'
+import { EntityTransformerOptions } from '../types'
 
 
 class JoiSchemaTransformer extends AbstractTransformer<ObjectSchema> {
+
+    private options?: EntityTransformerOptions
+
+    constructor( options?: EntityTransformerOptions ) {
+        super()
+        this.options = options
+    }
 
     tranformFromDescriptors(descriptors: EntityDescriptor): ObjectSchema {
         const schemas: Record<string, AnySchema> = {}
