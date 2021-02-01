@@ -16,11 +16,11 @@ export default class JSONSchemaTransformer<T = JSONSchema> extends AbstractTrans
         return this.buildSchemaFromDescriptors( descriptors )
     }
 
-    buildSchemaFromDescriptors(_descriptors: EntityDescriptor): Record<string, unknown> {
+    buildSchemaFromDescriptors(_descriptors: EntityDescriptor<BasicPropertyDescriptor>): Record<string, unknown> {
         throw new Error('Method not implemented.')
     }
 
-    tranformFromDescriptors(_descriptor: EntityDescriptor): T {
+    tranformFromDescriptors(_descriptor: EntityDescriptor<BasicPropertyDescriptor>): T {
         throw new Error('Method not implemented.')
     }
 
