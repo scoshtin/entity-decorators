@@ -4,7 +4,6 @@ import ArrayItems from './decorators/basic/ArrayItems'
 import Description from './decorators/basic/Description'
 import ISO8601Date from './decorators/basic/ISO8601Date'
 import Required from './decorators/basic/Required'
-import SubObject from './decorators/basic/SubObject'
 import BasicPropertyDescriptor from './lib/BasicPropertyDescriptor'
 import EntityDescriptor from './lib/EntityDescriptor'
 import Email from './decorators/basic/Email'
@@ -43,7 +42,6 @@ export {
     Optional,
     PositiveValue,
     Required,
-    SubObject,
     Url,
     Scope
 }

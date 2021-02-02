@@ -36,6 +36,7 @@ export default abstract class AbstractPropertyDescriptor {
      */
     get isCustomType(): boolean {
         if( this.propertyType === Array ) return false
+        if( this.propertyType === Object ) return false // this is just a json object with no type
         return !this.isPrimitive
     }
 

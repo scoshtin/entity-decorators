@@ -20,7 +20,6 @@ export default class Entity {
     userType: UserTypes
 
     @Required()
-    @SubObject( Address )
     address: Address
 
     @Required()
@@ -82,7 +81,6 @@ Install from npm: `npm i @general-galactic/entity-decorators`.
 * `Optional` - will allow populated, `null`, or `undefined` values.
 * `Description` - provide notes to the swagger generator - shows up on swagger UI.
 * `Enumeration` - provide a finite set of allowed values.
-* `SubObject` - used to define to descend into and extract decorators from a sub objects.
 * `Scope` - define scopes which are groups of properties. e.g. public, private, etc. 
 
 ### Strings

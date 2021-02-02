@@ -1,5 +1,5 @@
 import JoiSchemaTransformer from '../../../src/transformers/JoiSchemaTransformer'
-import { ArrayItems, Email, ISO8601Date, MaximumLength, MinimumLength, Optional, Required, SubObject, Url } from '../../../src'
+import { ArrayItems, Email, ISO8601Date, MaximumLength, MinimumLength, Optional, Required, Url } from '../../../src'
 import { expect } from 'chai'
 
 type JoiRule = {
@@ -168,7 +168,7 @@ describe( 'JoiSchemaTransformer', () => {
             }
 
             class ParentClass {
-                @SubObject()
+                @Optional()
                 child?: ChildClass
             }
     
@@ -192,6 +192,45 @@ describe( 'JoiSchemaTransformer', () => {
             expect(stringPropertyKey.type).to.equal('string')
             expect(stringPropertyKey.flags?.label).to.equal('stringProperty')
             expect(stringPropertyKey.flags?.presence).to.equal('required')
+        })
+
+        it('collects Required for sub Records', function() {
+            class Child {
+                @MinimumLength(4)
+                string?: string
+            }
+    
+            class Parent {
+                @Required()
+                data?: Record<string, Child[]>
+            }
+    
+            const transformer = new JoiSchemaTransformer()
+            const schema = transformer.tranformFromEntityClass( Parent )
+    
+            const describedSchema = schema.describe() as JoiDescribedSchema
+            expect(describedSchema.type).to.equal('object')
+    
+            const flags = describedSchema.flags as { label: string }
+            expect(flags.label).to.equal('Parent')
+    
+            expect(Object.keys(describedSchema.keys)).to.have.lengthOf(1)
+    
+            const dataKey = describedSchema.keys.data
+            expect(dataKey.type).to.equal('object')
+            expect(dataKey.flags?.label).to.equal('data')
+            expect(dataKey.flags?.presence).to.equal('required')
+            expect(dataKey.keys).to.be.undefined
+
+            const childInstance = new Child()
+            childInstance.string = 'child1'
+
+            const parentInstance = new Parent()
+            parentInstance.data = {
+                'key1': [childInstance]
+            }
+            const result = schema.validate( parentInstance )
+            expect(result.error).to.be.undefined
         })
 
     })
@@ -427,7 +466,7 @@ describe( 'JoiSchemaTransformer', () => {
     
             const stringProperty = describedSchema.keys.stringProperty
             expect(stringProperty.type).to.equal('object') // TODO: why is it an object? WTF?
-            expect(stringProperty.flags?.label).to.equal('Object')
+            expect(stringProperty.flags?.label).to.equal('stringProperty')
 
             // now test the schema with undefined
             const stringClassInstance1 = new StringClass()

@@ -41,9 +41,7 @@ class JoiSchemaTransformer<T extends AnySchema = AnySchema> extends AbstractTran
                 property = this.processArrayProperty( descriptor )
                 break
             default:
-                if( descriptor.isCustomType ) {
-                    property = this.processObjectProperty( descriptor )
-                }
+                property = this.processObjectProperty( descriptor )
         }
         if( !property ) throw new Error(`Unknown type: ${descriptor.propertyKey} -> ${descriptor.propertyTypeName}`)
 
@@ -135,8 +133,11 @@ class JoiSchemaTransformer<T extends AnySchema = AnySchema> extends AbstractTran
     }
 
     processObjectProperty( descriptor: BasicPropertyDescriptor ): T {
-        const itemSchema = this.tranformFromEntityClass( descriptor.propertyType )
-        return itemSchema
+        if( descriptor.isCustomType ) {
+            return this.tranformFromEntityClass( descriptor.propertyType )
+        }
+
+        return Joi.object() as unknown as T
     }
 
 }
