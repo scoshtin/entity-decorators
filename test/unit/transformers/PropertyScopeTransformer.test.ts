@@ -58,4 +58,10 @@ describe( 'PropertyScopeTransformer', () => {
         expect(publicScope).to.be.undefined
     })
 
+    it('does not explode when instance is not an object', function() {
+        const transformer = new PropertyScopesTransformer()
+        const publicScope = transformer.namedScopeFromEntityInstance( 'notanobject', 'doesnt exist' )
+        expect(publicScope).to.be.undefined
+    })
+
 })

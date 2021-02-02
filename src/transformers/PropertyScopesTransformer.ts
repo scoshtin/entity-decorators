@@ -49,7 +49,7 @@ export default class PropertyScopesTransformer {
     }
 
     allScopesFromEntityInstance( target: InstanceOfClass ): Record<string, EntityScope> {
-        const descriptors = EntityDescriptor.getDescriptorsForClass( target )
+        const descriptors = EntityDescriptor.getDescriptorsForInstance( target )
         return this.allScopesFromEntityDescriptor( descriptors )
     }
 
