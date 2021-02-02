@@ -100,6 +100,9 @@ describe( 'EntityDescriptor', () => {
         expect(descriptors.name).to.equal('StringClass2')
         expect(Object.keys(descriptors.descriptors)).to.have.lengthOf(2)
 
+        // Ensure the ordered keys array is the same size - I screwed this up before
+        expect(descriptors.orderedDescriptorKeys).to.have.lengthOf(2)
+
         const someString1Descriptor = descriptors.descriptors.someString1
         expect(someString1Descriptor.definedIn).to.equal('StringClass1')
         expect(someString1Descriptor.propertyKey).to.equal('someString1')

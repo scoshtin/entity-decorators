@@ -50,6 +50,7 @@ export default abstract class AbstractEntityDescriptor<T extends AbstractPropert
 
     mergeDescriptors( itemToMerge: AbstractEntityDescriptor<T> ): void {
         this.descriptors = {...this.descriptors, ...itemToMerge.descriptors}
+        this.orderedDescriptorKeys = [...this.orderedDescriptorKeys, ...itemToMerge.orderedDescriptorKeys] // Will this be an issue? dups?
     }
 
     [Symbol.iterator](): Iterator<T> {
