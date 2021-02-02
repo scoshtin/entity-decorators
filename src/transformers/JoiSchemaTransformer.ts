@@ -54,7 +54,7 @@ class JoiSchemaTransformer<T extends AnySchema = AnySchema> extends AbstractTran
         }
 
         // I'm unhappy about using $_getFlag() but it seems like the only way to check if the schema already has a label
-        if( !property.$_getFlag('label') ) property = property.label( descriptor.propertyKey )
+        // if( !property.$_getFlag('label') ) property = property.label( descriptor.propertyKey )
 
         return property as unknown as T
     }
