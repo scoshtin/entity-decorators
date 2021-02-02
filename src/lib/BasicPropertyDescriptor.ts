@@ -3,8 +3,10 @@ import AbstractPropertyDescriptor from './AbstractPropertyDescriptor'
 
 export default class BasicPropertyDescriptor extends AbstractPropertyDescriptor {
 
-    required = false
-    isISO8601Date = false
+    required?: boolean // will not accept null or undefined
+    optional?: boolean // will accept null or undefined
+
+    isISO8601Date?: boolean
     enumerationValues?: (string | number)[]
 
     minLength?: number

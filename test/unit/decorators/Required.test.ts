@@ -7,7 +7,7 @@ import { assertPropertyCollected, assertRequiredCollected } from '../../lib/Prop
 
 describe( 'Required decorator', () => {
 
-    it('required is false when not decorated', function() {
+    it('required is unset when not decorated', function() {
         class Clazz {
             @MinimumLength(4) // used just to make sure we collect this property
             string?: string
@@ -19,7 +19,7 @@ describe( 'Required decorator', () => {
             propertyType: String
         })
 
-        expect(descriptor.descriptors.string.required).to.be.false
+        expect(descriptor.descriptors.string.required).to.be.undefined
     })
 
     it('collects Required for Strings', function() {

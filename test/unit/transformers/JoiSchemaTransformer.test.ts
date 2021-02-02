@@ -1,5 +1,5 @@
 import JoiSchemaTransformer from '../../../src/transformers/JoiSchemaTransformer'
-import { ArrayItems, Email, ISO8601Date, MaximumLength, MinimumLength, Required, SubObject, Url } from '../../../src'
+import { ArrayItems, Email, ISO8601Date, MaximumLength, MinimumLength, Optional, Required, SubObject, Url } from '../../../src'
 import { expect } from 'chai'
 
 type JoiRule = {
@@ -406,6 +406,42 @@ describe( 'JoiSchemaTransformer', () => {
             expect(stringDateKey.type).to.equal('date')
             expect(stringDateKey.flags?.label).to.equal('stringProperty')
             expect(stringDateKey.flags?.format).to.equal('iso')
+        })
+
+        it('Optional works with undefined and null', function(){
+            class StringClass {
+                @Optional()
+                stringProperty?: string | null
+            }
+    
+            const transformer = new JoiSchemaTransformer()
+            const schema = transformer.tranformFromEntityClass( StringClass )
+    
+            const describedSchema = schema.describe() as JoiDescribedSchema
+            expect(describedSchema.type).to.equal('object')
+    
+            const flags = describedSchema.flags as { label: string }
+            expect(flags.label).to.equal('StringClass')
+    
+            expect(Object.keys(describedSchema.keys)).to.have.lengthOf(1)
+    
+            const stringProperty = describedSchema.keys.stringProperty
+            expect(stringProperty.type).to.equal('object') // TODO: why is it an object? WTF?
+            expect(stringProperty.flags?.label).to.equal('Object')
+
+            // now test the schema with undefined
+            const stringClassInstance1 = new StringClass()
+            stringClassInstance1.stringProperty = undefined
+            const { value: value1, error: error1 } = schema.validate(stringClassInstance1)
+            expect(error1).to.be.undefined
+            expect(value1).to.be.ok
+
+            // and again with null
+            const stringClassInstance2 = new StringClass()
+            stringClassInstance2.stringProperty = null
+            const { value: value2, error: error2 } = schema.validate(stringClassInstance2)
+            expect(error2).to.be.undefined
+            expect(value2).to.be.ok
         })
 
     })

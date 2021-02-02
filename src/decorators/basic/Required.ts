@@ -8,5 +8,6 @@ import { PropertyDecoratorFunc } from '../../types'
 export default function Required(): PropertyDecoratorFunc {
     return EntityDescriptor.collectProperty<BasicPropertyDescriptor>(({ descriptor }) => {
         descriptor.required = true
+        descriptor.optional = false
     })
 }

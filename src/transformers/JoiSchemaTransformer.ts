@@ -48,7 +48,12 @@ class JoiSchemaTransformer<T extends AnySchema = AnySchema> extends AbstractTran
         if( !property ) throw new Error(`Unknown type: ${descriptor.propertyKey} -> ${descriptor.propertyTypeName}`)
 
         // things common to all schemas - e.g. @Required
-        if( descriptor.required ) property = property.required()
+        if( descriptor.required === true ) {
+            property = property.required()
+        }else if( descriptor.optional === true ){
+            // Allow undefined and null
+            property = property.optional().allow(null)
+        }
 
         // I'm unhappy about using $_getFlag() but it seems like the only way to check if the schema already has a label
         if( !property.$_getFlag('label') ) property = property.label( descriptor.propertyKey )
