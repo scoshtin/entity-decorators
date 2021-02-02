@@ -85,7 +85,6 @@ describe( 'JoiSchemaTransformer', () => {
     
             const shitCountNumber = childItem.keys.shitCount
             expect(shitCountNumber.type).to.equal('number')
-            expect(shitCountNumber.flags?.label).to.equal('shitCount')
             expect(shitCountNumber.flags?.presence).to.equal('required')
         })
 
@@ -114,7 +113,6 @@ describe( 'JoiSchemaTransformer', () => {
     
             const childrenKey = describedSchema.keys.children
             expect(childrenKey.type).to.equal('array')
-            expect(childrenKey.flags?.label).to.equal('children')
             
             expect(childrenKey.rules).to.have.lengthOf(1)
 
@@ -148,7 +146,6 @@ describe( 'JoiSchemaTransformer', () => {
     
             const childrenKey = describedSchema.keys.children
             expect(childrenKey.type).to.equal('array')
-            expect(childrenKey.flags?.label).to.equal('children')
             
             expect(childrenKey.rules).to.have.lengthOf(1)
 
@@ -190,7 +187,6 @@ describe( 'JoiSchemaTransformer', () => {
 
             const stringPropertyKey = childKey.keys.stringProperty
             expect(stringPropertyKey.type).to.equal('string')
-            expect(stringPropertyKey.flags?.label).to.equal('stringProperty')
             expect(stringPropertyKey.flags?.presence).to.equal('required')
         })
 
@@ -218,7 +214,6 @@ describe( 'JoiSchemaTransformer', () => {
     
             const dataKey = describedSchema.keys.data
             expect(dataKey.type).to.equal('object')
-            expect(dataKey.flags?.label).to.equal('data')
             expect(dataKey.flags?.presence).to.equal('required')
             expect(dataKey.keys).to.be.undefined
 
@@ -389,7 +384,6 @@ describe( 'JoiSchemaTransformer', () => {
     
             const stringDateKey = describedSchema.keys.stringProperty
             expect(stringDateKey.type).to.equal('string')
-            expect(stringDateKey.flags?.label).to.equal('stringProperty')
             
             expect(stringDateKey.rules).to.have.length(1)
 
@@ -416,7 +410,6 @@ describe( 'JoiSchemaTransformer', () => {
     
             const stringDateKey = describedSchema.keys.stringProperty
             expect(stringDateKey.type).to.equal('string')
-            expect(stringDateKey.flags?.label).to.equal('stringProperty')
             
             expect(stringDateKey.rules).to.have.length(1)
 
@@ -443,7 +436,6 @@ describe( 'JoiSchemaTransformer', () => {
     
             const stringDateKey = describedSchema.keys.stringProperty
             expect(stringDateKey.type).to.equal('date')
-            expect(stringDateKey.flags?.label).to.equal('stringProperty')
             expect(stringDateKey.flags?.format).to.equal('iso')
         })
 
@@ -466,7 +458,6 @@ describe( 'JoiSchemaTransformer', () => {
     
             const stringProperty = describedSchema.keys.stringProperty
             expect(stringProperty.type).to.equal('object') // TODO: why is it an object? WTF?
-            expect(stringProperty.flags?.label).to.equal('stringProperty')
 
             // now test the schema with undefined
             const stringClassInstance1 = new StringClass()

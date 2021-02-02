@@ -1,6 +1,6 @@
 import EntityDescriptor from '../lib/EntityDescriptor'
-import AbstractTransformer from './AbstractTransformer'
 import BasicPropertyDescriptor from '../lib/BasicPropertyDescriptor'
+import { InstanceOfClass, Class } from '../types'
 
 class EntityScope {
 
@@ -26,9 +26,29 @@ class EntityScope {
 
 export { EntityScope }
 
-export default class PropertyScopesTransformer<T = EntityScope[]> extends AbstractTransformer<T> {
-    
-    tranformFromDescriptors(entityDescriptor: EntityDescriptor<BasicPropertyDescriptor>): T {
+export default class PropertyScopesTransformer {
+
+    namedScopeFromEntityClass( target: Class, scopeName: string ): EntityScope {
+        const scopes = this.allScopesFromEntityClass( target )
+        return scopes[scopeName]
+    }
+
+    namedScopeFromEntityInstance( target: InstanceOfClass, scopeName: string ): EntityScope {
+        const scopes = this.allScopesFromEntityInstance( target )
+        return scopes[scopeName]
+    }
+
+    allScopesFromEntityInstance( target: InstanceOfClass ): Record<string, EntityScope> {
+        const descriptors = EntityDescriptor.getDescriptorsForClass( target )
+        return this.allScopesFromEntityDescriptor( descriptors )
+    }
+
+    allScopesFromEntityClass( target: Class ): Record<string, EntityScope> {
+        const descriptors = EntityDescriptor.getDescriptorsForClass( target )
+        return this.allScopesFromEntityDescriptor( descriptors )
+    }
+
+    allScopesFromEntityDescriptor(entityDescriptor: EntityDescriptor<BasicPropertyDescriptor>): Record<string, EntityScope> {
         const allScopes: Record<string, EntityScope> = {}
 
         for( const propertyDescriptor of entityDescriptor ) {
@@ -38,11 +58,7 @@ export default class PropertyScopesTransformer<T = EntityScope[]> extends Abstra
             }
         }
 
-        return Object.keys(allScopes).reduce( ( output: EntityScope[] , key: string ) => {
-            const scope = allScopes[key]
-            output.push( scope )
-            return output
-        }, [] ) as unknown as T
+        return allScopes
     }
 
     recordScopes( allScopes: Record<string, EntityScope>, propertyDescriptor: BasicPropertyDescriptor ): void {
@@ -58,8 +74,9 @@ export default class PropertyScopesTransformer<T = EntityScope[]> extends Abstra
     }
 
     processChildProperties( allScopes: Record<string, EntityScope>, propertyDescriptor: BasicPropertyDescriptor ): void {
-         const subScopes = this.tranformFromEntityClass( propertyDescriptor.itemType )
-         for( const subScope of subScopes as unknown as EntityScope[] ) {
+         const subScopes = this.allScopesFromEntityClass( propertyDescriptor.itemType )
+         for( const subScopeName in subScopes ) {
+             const subScope = subScopes[subScopeName]
              const parentScope = this.findOrCreateScope( allScopes, subScope.scope )
              if( parentScope ) {
                  parentScope.mergeSubScope( propertyDescriptor.propertyKey, subScope )

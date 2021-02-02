@@ -4,37 +4,35 @@ import PropertyScopesTransformer from '../../../src/transformers/PropertyScopesT
 
 describe( 'PropertyScopeTransformer', () => {
 
-    it('generates schemas for objects with arrays of other objects', function() {
+    class Child {
+        @Scope('public')
+        publicChildValue?: number
 
-        class Child {
-            @Scope('public')
-            publicChildValue?: number
+        @Scope('private')
+        privateChildValue?: number
+    }
 
-            @Scope('private')
-            privateChildValue?: number
-        }
+    class Parent {
 
-        class Parent {
+        @ArrayItems(Child)
+        children?: Child[]
 
-            @ArrayItems(Child)
-            children?: Child[]
+        @Scope('public')
+        publicValue?: number
 
-            @Scope('public')
-            publicValue?: number
+        @Scope('private')
+        privateValue?: string
 
-            @Scope('private')
-            privateValue?: string
+    }
 
-        }
-
+    it('generates scopes for nested objects', function() {
         const transformer = new PropertyScopesTransformer()
-        const scopes = transformer.tranformFromEntityClass( Parent )
+        const scopes = transformer.allScopesFromEntityClass( Parent )
 
-        expect(scopes).to.have.length(2)
+        expect(Object.keys(scopes)).to.have.length(2)
 
-        const [publicScope] = scopes.filter( s => s.scope === 'public' )
-        const [privateScope] = scopes.filter( s => s.scope === 'private' )
-
+        const { public: publicScope, private: privateScope } = scopes
+       
         expect(publicScope.scope).to.equal('public')
         expect(publicScope.properties).to.have.length(2)
         expect(publicScope.properties).to.deep.equal(['children.publicChildValue', 'publicValue'])
@@ -42,6 +40,22 @@ describe( 'PropertyScopeTransformer', () => {
         expect(privateScope.scope).to.equal('private')
         expect(privateScope.properties).to.have.length(2)
         expect(privateScope.properties).to.deep.equal(['children.privateChildValue', 'privateValue'])
+    })
+
+    it('allows getting a named scope', function() {
+        const transformer = new PropertyScopesTransformer()
+        const publicScope = transformer.namedScopeFromEntityClass( Parent, 'public' )
+
+        expect(publicScope.scope).to.equal('public')
+        expect(publicScope.properties).to.have.length(2)
+        expect(publicScope.properties).to.deep.equal(['children.publicChildValue', 'publicValue'])
+    })
+
+    it('does not explode when a named scope does not exist', function() {
+        const transformer = new PropertyScopesTransformer()
+        const publicScope = transformer.namedScopeFromEntityClass( Parent, 'doesnt exist' )
+
+        expect(publicScope).to.be.undefined
     })
 
 })
