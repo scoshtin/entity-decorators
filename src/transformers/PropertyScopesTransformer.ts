@@ -28,6 +28,16 @@ export { EntityScope }
 
 export default class PropertyScopesTransformer {
 
+    propertiesForScopeFromEntityClass( target: Class, scopeName: string ): string[] {
+        const scope = this.namedScopeFromEntityClass( target, scopeName )
+        return scope ? scope.properties : []
+    }
+
+    propertiesForScopeScopeFromEntityInstance( target: InstanceOfClass, scopeName: string ): string[] {
+        const scope = this.namedScopeFromEntityInstance( target, scopeName )
+        return scope ? scope.properties : []
+    }
+
     namedScopeFromEntityClass( target: Class, scopeName: string ): EntityScope {
         const scopes = this.allScopesFromEntityClass( target )
         return scopes[scopeName]
