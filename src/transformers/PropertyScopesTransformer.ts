@@ -33,7 +33,7 @@ export default class PropertyScopesTransformer {
         return scope ? scope.properties : []
     }
 
-    propertiesForScopeScopeFromEntityInstance( target: InstanceOfClass, scopeName: string ): string[] {
+    propertiesForScopeFromEntityInstance( target: InstanceOfClass, scopeName: string ): string[] {
         const scope = this.namedScopeFromEntityInstance( target, scopeName )
         return scope ? scope.properties : []
     }
