@@ -1,7 +1,7 @@
 {
   "name": "@general-galactic/entity-decorators",
   "author": "General Galactic",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "license": "MIT",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
