@@ -9,7 +9,7 @@ describe( 'Email decorator', () => {
 
     it('string format is undefined when not decorated', function() {
         class Clazz {
-            @Required() // used just to make sure we collect this property
+            @Required // used just to make sure we collect this property
             string?: string
         }
 
@@ -23,7 +23,7 @@ describe( 'Email decorator', () => {
 
     it('collects email format for strings', function() {
         class Clazz {
-            @Email()
+            @Email
             string?: string
         }
 
@@ -38,7 +38,7 @@ describe( 'Email decorator', () => {
 
     it('collects email format for string arrays', function() {
         class Clazz {
-            @Email()
+            @Email
             @ArrayItems(String)
             array?: string[]
         }
@@ -56,7 +56,7 @@ describe( 'Email decorator', () => {
         try {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class Clazz {
-                @Email()
+                @Email
                 date?: Date
             }
         }catch( e ) {

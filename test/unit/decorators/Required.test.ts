@@ -24,7 +24,7 @@ describe( 'Required decorator', () => {
 
     it('collects Required for Strings', function() {
         class Clazz {
-            @Required()
+            @Required
             string?: string
         }
 
@@ -37,7 +37,7 @@ describe( 'Required decorator', () => {
 
     it('collects Required for string arrays', function() {
         class Clazz {
-            @Required()
+            @Required
             array?: string[]
         }
 
@@ -56,7 +56,7 @@ describe( 'Required decorator', () => {
 
         class Parent {
             @ArrayItems(Child)
-            @Required()
+            @Required
             children?: Child[]
         }
 

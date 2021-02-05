@@ -8,7 +8,7 @@ describe( 'Description decorator', () => {
     it('description is undefined when not decorated', function() {
 
         class Clazz {
-            @Required() // used just to make sure we collect this property
+            @Required // used just to make sure we collect this property
             string?: string
         }
 

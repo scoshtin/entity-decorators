@@ -8,7 +8,7 @@ describe( 'ISO8601Date decorator', () => {
 
     it('string format is undefined when not decorated', function() {
         class Clazz {
-            @Required() // used just to make sure we collect this property
+            @Required // used just to make sure we collect this property
             string?: string
         }
 
@@ -22,7 +22,7 @@ describe( 'ISO8601Date decorator', () => {
 
     it('collects iso date format for strings', function() {
         class Clazz {
-            @ISO8601Date()
+            @ISO8601Date
             string?: string
         }
 
@@ -37,7 +37,7 @@ describe( 'ISO8601Date decorator', () => {
 
     it('collects iso date format for string arrays', function() {
         class Clazz {
-            @ISO8601Date()
+            @ISO8601Date
             @ArrayItems(String)
             array?: string[]
         }
@@ -55,7 +55,7 @@ describe( 'ISO8601Date decorator', () => {
         try {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class Clazz {
-                @ISO8601Date()
+                @ISO8601Date
                 number?: number
             }
         }catch( e ) {
@@ -66,7 +66,7 @@ describe( 'ISO8601Date decorator', () => {
         try {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class Clazz {
-                @ISO8601Date()
+                @ISO8601Date
                 number?: number[]
             }
         }catch( e ) {

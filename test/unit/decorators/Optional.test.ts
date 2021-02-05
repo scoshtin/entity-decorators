@@ -24,7 +24,7 @@ describe( 'Optional decorator', () => {
 
     it('collects optional for Strings', function() {
         class Clazz {
-            @Optional()
+            @Optional
             string?: string
         }
 
@@ -37,7 +37,7 @@ describe( 'Optional decorator', () => {
 
     it('collects Required for string arrays', function() {
         class Clazz {
-            @Optional()
+            @Optional
             array?: string[]
         }
 
@@ -56,7 +56,7 @@ describe( 'Optional decorator', () => {
 
         class Parent {
             @ArrayItems(Child)
-            @Optional()
+            @Optional
             children?: Child[]
         }
 

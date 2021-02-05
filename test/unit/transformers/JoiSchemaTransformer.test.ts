@@ -28,7 +28,7 @@ describe( 'JoiSchemaTransformer', () => {
 
     it('works with instances', function(){
         class StringClass {
-            @Required()
+            @Required
             stringProperty?: string
         }
 
@@ -69,12 +69,12 @@ describe( 'JoiSchemaTransformer', () => {
 
         it('generates schemas for objects with arrays of other objects', function() {
             class Child {
-                @Required()
+                @Required
                 shitCount?: number
             }
     
             class Parent {
-                @Required()
+                @Required
                 @ArrayItems(Child)
                 children?: Child[]
             }
@@ -109,7 +109,7 @@ describe( 'JoiSchemaTransformer', () => {
 
         it('MinimumLength works for arrays', function() {
             class Child {
-                @Required()
+                @Required
                 shitCount?: number
             }
     
@@ -142,7 +142,7 @@ describe( 'JoiSchemaTransformer', () => {
 
         it('MaximumLength works for arrays', function() {
             class Child {
-                @Required()
+                @Required
                 shitCount?: number
             }
     
@@ -179,12 +179,12 @@ describe( 'JoiSchemaTransformer', () => {
 
         it('will descend into sub objects', function() {
             class ChildClass {
-                @Required()
+                @Required
                 stringProperty?: string
             }
 
             class ParentClass {
-                @Optional()
+                @Optional
                 child?: ChildClass
             }
     
@@ -216,7 +216,7 @@ describe( 'JoiSchemaTransformer', () => {
             }
     
             class Parent {
-                @Required()
+                @Required
                 data?: Record<string, Child[]>
             }
     
@@ -253,7 +253,7 @@ describe( 'JoiSchemaTransformer', () => {
 
         it('generates iso date schemas for Date properties', function() {
             class DateClass {
-                @ISO8601Date()
+                @ISO8601Date
                 date?: Date
             }
     
@@ -279,7 +279,7 @@ describe( 'JoiSchemaTransformer', () => {
 
         it('handles required string properties', function(){
             class StringClass {
-                @Required()
+                @Required
                 stringProperty?: string
             }
     
@@ -386,7 +386,7 @@ describe( 'JoiSchemaTransformer', () => {
 
         it('Email format works', function(){
             class StringClass {
-                @Email()
+                @Email
                 stringProperty?: string
             }
     
@@ -412,7 +412,7 @@ describe( 'JoiSchemaTransformer', () => {
 
         it('Url format works', function(){
             class StringClass {
-                @Url()
+                @Url
                 stringProperty?: string
             }
     
@@ -438,7 +438,7 @@ describe( 'JoiSchemaTransformer', () => {
 
         it('ISO8601Date format works', function(){
             class StringClass {
-                @ISO8601Date()
+                @ISO8601Date
                 stringProperty?: string
             }
     
@@ -460,7 +460,7 @@ describe( 'JoiSchemaTransformer', () => {
 
         it('Optional works with undefined and null', function(){
             class StringClass {
-                @Optional()
+                @Optional
                 stringProperty?: string | null
             }
     
@@ -499,7 +499,7 @@ describe( 'JoiSchemaTransformer', () => {
 
         it('handles required boolean properties', function(){
             class BooleanClass {
-                @Required()
+                @Required
                 booleanProperty?: boolean
             }
     

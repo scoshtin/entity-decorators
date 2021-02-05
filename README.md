@@ -7,22 +7,22 @@ own decorators and transformers to do whatever you need. Here's what it looks li
 ```javascript
 export default class Entity {
 
-    @Required()
+    @Required
     @MinimumLength(6)
     firstName: string
 
-    @Optional()
+    @Optional
     @MinimumValue(1)
     articleCount: number
 
-    @Required()
+    @Required
     @Enumeration( UserTypes.member, UserTypes.owner )
     userType: UserTypes
 
-    @Required()
+    @Required
     address: Address
 
-    @Required()
+    @Required
     @ArrayItems( ContactMethod )
     @MinimumLength(1)
     contactMethods: ContactMethod[]

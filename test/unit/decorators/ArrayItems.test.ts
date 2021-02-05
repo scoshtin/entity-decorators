@@ -9,7 +9,7 @@ describe( 'ArrayItems decorator', () => {
 
     it('itemType is undefined when not decorated', function() {
         class Child {
-            @Required()
+            @Required
             string?: string
         }
 
@@ -28,7 +28,7 @@ describe( 'ArrayItems decorator', () => {
 
     it('collects ItemType for arrays of child objects', function() {
         class Child {
-            @Required()
+            @Required
             string?: string
         }
 
@@ -47,7 +47,7 @@ describe( 'ArrayItems decorator', () => {
 
     it('collects ItemType for sub-objects', function() {
         class Child2 {
-            @Required()
+            @Required
             string?: string
         }
 

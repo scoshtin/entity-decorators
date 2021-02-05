@@ -8,7 +8,7 @@ describe( 'NegativeValue decorator', () => {
 
     it('negativeValue is undefined when not decorated', function() {
         class Clazz {
-            @Required() // used just to make sure we collect this property
+            @Required // used just to make sure we collect this property
             string?: string
         }
 
@@ -23,7 +23,7 @@ describe( 'NegativeValue decorator', () => {
     it('collects negativeValue for numbers', function() {
 
         class Clazz {
-            @NegativeValue()
+            @NegativeValue
             number?: number
         }
 
@@ -39,7 +39,7 @@ describe( 'NegativeValue decorator', () => {
         try {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class Clazz {
-                @NegativeValue()
+                @NegativeValue
                 date?: Date
             }
         }catch( e ) {

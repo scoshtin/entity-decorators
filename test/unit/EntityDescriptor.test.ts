@@ -5,12 +5,12 @@ describe( 'EntityDescriptor', () => {
 
     it('handles arrays of other decorated objects', function() {
         class Child {
-            @Required()
+            @Required
             shitCount?: number
         }
 
         class Parent {
-            @Required()
+            @Required
             @ArrayItems(Child)
             children?: Child[]
         }
@@ -30,7 +30,7 @@ describe( 'EntityDescriptor', () => {
 
     it('handles number properties', function() {
         class NumberClass {
-            @Required()
+            @Required
             count?: number
         }
 
@@ -49,7 +49,7 @@ describe( 'EntityDescriptor', () => {
 
     it('handles string properties', function() {
         class StringClass {
-            @Required()
+            @Required
             someString?: string
         }
 
@@ -68,7 +68,7 @@ describe( 'EntityDescriptor', () => {
 
     it('handles date properties', function() {
         class DateClass {
-            @Required()
+            @Required
             someDate?: Date
         }
 
@@ -87,12 +87,12 @@ describe( 'EntityDescriptor', () => {
 
     it('handles inheritance', function() {
         class StringClass1 {
-            @Required()
+            @Required
             someString1?: string
         }
 
         class StringClass2 extends StringClass1 {
-            @Required()
+            @Required
             someString2?: string
         }
 
@@ -122,10 +122,10 @@ describe( 'EntityDescriptor', () => {
 
     it('returns the same descriptors for classes and instances', function() {
         class SomeClass {
-            @Required()
+            @Required
             someString1?: string
 
-            @Required()
+            @Required
             someString2?: number
         }
 
