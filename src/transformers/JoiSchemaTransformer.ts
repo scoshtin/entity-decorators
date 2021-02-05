@@ -23,40 +23,42 @@ class JoiSchemaTransformer<T extends AnySchema = AnySchema> extends AbstractTran
     }
 
     processProperty( descriptor: BasicPropertyDescriptor ): T {
-        let property:AnySchema | undefined
+        let schema:AnySchema | undefined
         switch( descriptor.propertyTypeName ) {
             case 'String':
-                property = this.processStringProperty( descriptor )
+                schema = this.processStringProperty( descriptor )
                 break
             case 'Number':
-                property = this.processNumberProperty( descriptor )
+                schema = this.processNumberProperty( descriptor )
                 break
             case 'Boolean':
-                property = this.processBooleanProperty( descriptor )
+                schema = this.processBooleanProperty( descriptor )
                 break
             case 'Date':
-                property = this.processDateProperty( descriptor )
+                schema = this.processDateProperty( descriptor )
                 break
             case 'Array':
-                property = this.processArrayProperty( descriptor )
+                schema = this.processArrayProperty( descriptor )
                 break
             default:
-                property = this.processObjectProperty( descriptor )
+                schema = this.processObjectProperty( descriptor )
         }
-        if( !property ) throw new Error(`Unknown type: ${descriptor.propertyKey} -> ${descriptor.propertyTypeName}`)
+        if( !schema ) throw new Error(`Unknown type: ${descriptor.propertyKey} -> ${descriptor.propertyTypeName}`)
 
         // things common to all schemas - e.g. @Required
         if( descriptor.required === true ) {
-            property = property.required()
+            schema = schema.required()
         }else if( descriptor.optional === true ){
             // Allow undefined and null
-            property = property.optional().allow(null)
+            schema = schema.optional().allow(null)
         }
+
+        if( descriptor.description ) schema = schema.description( descriptor.description )
 
         // I'm unhappy about using $_getFlag() but it seems like the only way to check if the schema already has a label
         // if( !property.$_getFlag('label') ) property = property.label( descriptor.propertyKey )
 
-        return property as unknown as T
+        return schema as unknown as T
     }
 
     processStringProperty( descriptor: BasicPropertyDescriptor ): T {

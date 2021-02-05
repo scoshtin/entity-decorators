@@ -1,5 +1,5 @@
 import JoiSchemaTransformer from '../../../src/transformers/JoiSchemaTransformer'
-import { ArrayItems, Email, ISO8601Date, MaximumLength, MinimumLength, Optional, Required, Url } from '../../../src'
+import { ArrayItems, Description, Email, ISO8601Date, MaximumLength, MinimumLength, Optional, Required, Url } from '../../../src'
 import { expect } from 'chai'
 
 type JoiRule = {
@@ -14,7 +14,8 @@ type JoiDescribedSchema = {
     flags?: {
         presence?: string,
         label?: string,
-        format?: string
+        format?: string,
+        description?: string
     },
     items?: JoiDescribedSchema[],
     keys: {
@@ -44,6 +45,24 @@ describe( 'JoiSchemaTransformer', () => {
 
         const stringDateKey = describedSchema.keys.stringProperty
         expect(stringDateKey.type).to.equal('string')
+    })
+
+    describe('@Description()', function(){
+
+        it('works', function(){
+            class ChildClass {
+                @Description('it works!')
+                stringProperty?: string
+            }
+
+            const transformer = new JoiSchemaTransformer()
+            const schema = transformer.tranformFromEntityClass( ChildClass )
+    
+            const describedSchema = schema.describe() as JoiDescribedSchema
+            const stringPropertySchema = describedSchema.keys.stringProperty
+            expect(stringPropertySchema.flags?.description).to.be.equal('it works!')
+        })
+
     })
 
     describe('array properties', function(){
