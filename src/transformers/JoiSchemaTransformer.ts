@@ -82,6 +82,10 @@ class JoiSchemaTransformer<T extends AnySchema = AnySchema> extends AbstractTran
             schema = schema.uri()
         }
 
+        if( descriptor.enumerationValues ) {
+            schema = schema.valid( ...descriptor.enumerationValues )
+        }
+
         // let output: AnySchema = schema
         // if( descriptor.custom && this.options?.customHandlers ) {
         //     for( const customDecorator in this.options.customHandlers ) {
@@ -95,8 +99,13 @@ class JoiSchemaTransformer<T extends AnySchema = AnySchema> extends AbstractTran
         return schema as unknown as T
     }
 
-    processNumberProperty( _descriptor: BasicPropertyDescriptor ): T {
-        const schema = Joi.number()
+    processNumberProperty( descriptor: BasicPropertyDescriptor ): T {
+        let schema = Joi.number()
+
+        if( descriptor.enumerationValues ) {
+            schema = schema.valid( ...descriptor.enumerationValues )
+        }
+
         return schema as unknown as T
     }
 
