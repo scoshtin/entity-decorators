@@ -140,6 +140,10 @@ class JoiSchemaTransformer<T extends AnySchema = AnySchema> extends AbstractTran
             schema = schema.max( descriptor.maxLength )
         }
 
+        if( descriptor.enumerationValues ) {
+            schema = schema.valid( ...descriptor.enumerationValues )
+        }
+
         return schema as unknown as T
     }
 

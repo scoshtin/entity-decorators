@@ -518,6 +518,29 @@ describe( 'JoiSchemaTransformer', () => {
             expect(stringProperty.allow).to.deep.equal(['one', 'two', 'three'])
         })
 
+        it('Handles string enumerations for arrays', function(){
+            class StringClass {
+                @Enumeration('one', 'two', 'three')
+                stringProperty?: string[]
+            }
+    
+            const transformer = new JoiSchemaTransformer()
+            const schema = transformer.tranformFromEntityClass( StringClass )
+    
+            const describedSchema = schema.describe() as JoiDescribedSchema
+            expect(describedSchema.type).to.equal('object')
+    
+            const flags = describedSchema.flags as { label: string }
+            expect(flags.label).to.equal('StringClass')
+    
+            expect(Object.keys(describedSchema.keys)).to.have.lengthOf(1)
+    
+            const stringProperty = describedSchema.keys.stringProperty
+            expect(stringProperty.type).to.equal('array')
+            expect(stringProperty.flags?.only).to.be.true
+            expect(stringProperty.allow).to.deep.equal(['one', 'two', 'three'])
+        })
+
     })
 
     describe('boolean properties', function(){
@@ -547,7 +570,7 @@ describe( 'JoiSchemaTransformer', () => {
 
     describe('number properties', function(){
 
-        it('Handles string enumerations', function(){
+        it('Handles number enumerations', function(){
             class NumberClass {
                 @Enumeration(1, 2, 3)
                 numberProperty?: number

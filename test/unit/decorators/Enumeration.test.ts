@@ -34,6 +34,20 @@ describe( 'Enumeration decorator', () => {
         })
     })
 
+    it('collects allowedValues for string[]', function() {
+        class Clazz {
+            @Enumeration('one', 'two', 'three')
+            string?: string[]
+        }
+
+        assertEnumerationValuesCollected({
+            Clazz,
+            propertyKey: 'string',
+            propertyType: Array,
+            expectedEnumerationValues: ['one', 'two', 'three']
+        })
+    })
+
     it('collects allowedValues for number', function() {
         class Clazz {
             @Enumeration(1, 2, 3)
